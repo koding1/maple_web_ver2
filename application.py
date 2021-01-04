@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import sys
 from read_data import read_data
+
 application = Flask(__name__)
 
 @application.route("/")
@@ -22,4 +23,4 @@ if __name__ == "__main__":
     application.run(host='0.0.0.0', port=5000)
 
 
-# https://osasf.net/discussion/610 -> mysql latin1 에서 utf8로 바꾸는 설정
+# https://osasf.net/discussion/610 -> mysql latin1 에서 utf8로 바꾸는 설정 
