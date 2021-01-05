@@ -1,6 +1,7 @@
 from flask import Flask, render_template
+from flask.ext.assets import Environment, Bundle
 import sys
-from read_data import read_data
+from grap_mysql import grap_data
 
 application = Flask(__name__)
 
@@ -15,10 +16,7 @@ def hello():
 
 
 if __name__ == "__main__":
-    data = read_data()
-    
-    for k, v in data.items():
-        print(k, v)
+    data = grap_data()
         
     application.run(host='0.0.0.0', port=5000)
 

@@ -1,7 +1,9 @@
 <h1>
-    {% for key, value in rank_data.items() %}
-        {{key}}
-        {{value}}
+    {% for i in rank_data %}
+        {{i['job']}}
+        {{i['char_cnt']}}
+        {{i['now_rank']}}
+        {{i['ex_rank']}}
         <br>
     {% endfor %}
 </h1>

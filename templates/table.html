@@ -18,11 +18,11 @@
             </thead>
             
             <tbody>
-                {% for key, value in rank_data.items() %}
+                {% for i in rank_data %}
                     <tr>
-                        <td>{{value[0]}}</td>
-                        <td>{{key}}</td>
-                        <td>{{value[1]}}</td>
+                        <td>{{i['now_rank']}}</td>
+                        <td>{{i['job']}}</td>
+                        <td>{{i['char_cnt']}}</td>
                     </tr>
                 {% endfor %}                   
             </tbody>
