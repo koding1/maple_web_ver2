@@ -1,19 +1,21 @@
 from flask import Flask, render_template
-from flask.ext.assets import Environment, Bundle
+from flask_scss import Scss
 import sys
 from grap_mysql import grap_data
 
 application = Flask(__name__)
 
 @application.route("/")
-def hello2():
-    
-    return render_template("hello2.html", rank_data=data)
+def main():
+    return render_template("job_rank.html", rank_data=data)
 
-@application.route("/table")
-def hello():
-    return render_template("table.html", rank_data=data)
+@application.route("/job_rank")
+def job_rank():
+    return render_template("job_rank.html", rank_data=data)
 
+@application.route("/mbti")
+def navi():
+    return render_template("mbti.html")
 
 if __name__ == "__main__":
     data = grap_data()

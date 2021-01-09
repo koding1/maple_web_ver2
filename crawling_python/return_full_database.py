@@ -29,7 +29,7 @@ def list2dict(full_data):
 
 def read_data():
     # 파일 열기
-    f = open("crawling_data.txt", 'r+', encoding ='utf-8-sig')
+    f = open("crawling_python/crawling_data.txt", 'r+', encoding ='utf-8-sig')
     
     lines = f.readlines()
     full_data = []

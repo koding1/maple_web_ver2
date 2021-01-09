@@ -1,77 +1,156 @@
-// Navigation Variables
-$content-width: 1000px;
-$breakpoint: 799px;
-$nav-height: 70px;
-$nav-background: #262626;
-$nav-font-color: #ffffff;
-$link-hover-color: #2581dc;
+/* https://codepen.io/jchamill/pen/garoqg */
 
-// Outer navigation wrapper
-.navigation {
-    height: $nav-height;
-    background: $nav-background;
+.faded {
+    color: #777;
+}
+#quiz-counter {
+    color: #88449a;
+}
+.quiz-container {
+    padding: 0.25em;
+    max-width: 650px;
+    margin: 1em auto;
 }
 
-// Logo and branding
+.quiz-container a {
+    text-decoration: none;
+    color: #333;
+}
+
+#quiz-header,
+#quiz-start-screen,
+#quiz-results-screen,
+#quiz-counter {
+    text-align: center;
+}
+
+.question {
+    font-size: 1.25em;
+}
+
+.answers {
+    list-style: none;
+    padding: 0;
+}
+
+.answers a {
+    display: block;
+    padding: 0.5em 1em;
+    margin-bottom: 0.5em;
+    background: #fff;
+}
+
+.answers a.correct {
+    background: #090;
+}
+.answers a.incorrect {
+    background: #c00;
+}
+
+.answers a.correct,
+.answers a.incorrect {
+    color: #fff;
+}
+
+#quiz-controls {
+    background: #63c5bc;
+    color: #111;
+    padding: 0.25em 0.5em 0.5em;
+    text-align: center;
+}
+
+#quiz-response {
+}
+#quiz-results {
+    font-size: 1.25em;
+}
+
+#quiz-buttons a,
+.quiz-container .quiz-button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #88449a;
+    color: #fff;
+}
+#quiz-buttons a {
+    background: #fff;
+    color: #333;
+}
+
+/* Quiz State Overrides */
+
+.quiz-results-state #quiz-controls {
+    background: none;
+    padding: 0;
+}
+.quiz-results-state #quiz-buttons a {
+    background: #88449a;
+    color: #fff;
+}
+
+.navigation {
+    height: 70px;
+    background: #262626;
+}
+
 .brand {
     position: absolute;
     padding-left: 20px;
     float: left;
-    line-height: $nav-height;
+    line-height: 70px;
     text-transform: uppercase;
     font-size: 1.4em;
-    a,
-    a:visited {
-        color: $nav-font-color;
-        text-decoration: none;
-    }
+}
+.brand a,
+.brand a:visited {
+    color: #ffffff;
+    text-decoration: none;
 }
 
-// Container with no padding for navbar
 .nav-container {
-    max-width: $content-width;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-// Navigation
 nav {
     float: right;
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        li {
-            float: left;
-            position: relative;
-            a,
-            a:visited {
-                display: block;
-                padding: 0 20px;
-                line-height: $nav-height;
-                background: $nav-background;
-                color: $nav-font-color;
-                text-decoration: none;
-                &:hover {
-                    background: $link-hover-color;
-                    color: $nav-font-color;
-                }
-                &:not(:only-child):after {
-                    padding-left: 4px;
-                    content: ' ▾';
-                }
-            } // Dropdown list
-            ul li {
-                min-width: 190px;
-                a {
-                    padding: 15px;
-                    line-height: 20px;
-                }
-            }
-        }
-    }
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    float: left;
+    position: relative;
+}
+nav ul li a,
+nav ul li a:visited {
+    display: block;
+    padding: 0 20px;
+    line-height: 70px;
+    background: #262626;
+    color: #ffffff;
+    text-decoration: none;
+}
+nav ul li a:hover,
+nav ul li a:visited:hover {
+    background: #2581dc;
+    color: #ffffff;
+}
+nav ul li a:not(:only-child):after,
+nav ul li a:visited:not(:only-child):after {
+    padding-left: 4px;
+    content: ' ▾';
+}
+nav ul li ul li {
+    min-width: 190px;
+}
+nav ul li ul li a {
+    padding: 15px;
+    line-height: 20px;
 }
 
-// Dropdown list binds to JS toggle event
 .nav-dropdown {
     position: absolute;
     display: none;
@@ -79,92 +158,90 @@ nav {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Mobile navigation */
-
-// Binds to JS Toggle
 .nav-mobile {
     display: none;
     position: absolute;
     top: 0;
     right: 0;
-    background: $nav-background;
-    height: $nav-height;
-    width: $nav-height;
+    background: #262626;
+    height: 70px;
+    width: 70px;
 }
+
 @media only screen and (max-width: 798px) {
-    // Hamburger nav visible on mobile only
     .nav-mobile {
         display: block;
     }
     nav {
         width: 100%;
-        padding: $nav-height 0 15px;
-        ul {
-            display: none;
-            li {
-                float: none;
-                a {
-                    padding: 15px;
-                    line-height: 20px;
-                }
-                ul li a {
-                    padding-left: 30px;
-                }
-            }
-        }
+        padding: 70px 0 15px;
+    }
+    nav ul {
+        display: none;
+    }
+    nav ul li {
+        float: none;
+    }
+    nav ul li a {
+        padding: 15px;
+        line-height: 20px;
+    }
+    nav ul li ul li a {
+        padding-left: 30px;
     }
     .nav-dropdown {
         position: static;
     }
 }
-@media screen and (min-width: $breakpoint) {
+
+@media screen and (min-width: 799px) {
     .nav-list {
         display: block !important;
     }
 }
+
 #nav-toggle {
     position: absolute;
     left: 18px;
     top: 22px;
     cursor: pointer;
     padding: 10px 35px 16px 0px;
-    span,
-    span:before,
-    span:after {
-        cursor: pointer;
-        border-radius: 1px;
-        height: 5px;
-        width: 35px;
-        background: $nav-font-color;
-        position: absolute;
-        display: block;
-        content: '';
-        transition: all 300ms ease-in-out;
-    }
-    span:before {
-        top: -10px;
-    }
-    span:after {
-        bottom: -10px;
-    }
-    &.active span {
-        background-color: transparent;
-        &:before,
-        &:after {
-            top: 0;
-        }
-        &:before {
-            transform: rotate(45deg);
-        }
-        &:after {
-            transform: rotate(-45deg);
-        }
-    }
+}
+#nav-toggle span,
+#nav-toggle span:before,
+#nav-toggle span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 5px;
+    width: 35px;
+    background: #ffffff;
+    position: absolute;
+    display: block;
+    content: '';
+    transition: all 300ms ease-in-out;
+}
+#nav-toggle span:before {
+    top: -10px;
+}
+#nav-toggle span:after {
+    bottom: -10px;
+}
+#nav-toggle.active span {
+    background-color: transparent;
+}
+#nav-toggle.active span:before,
+#nav-toggle.active span:after {
+    top: 0;
+}
+#nav-toggle.active span:before {
+    transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+    transform: rotate(-45deg);
 }
 
-// Page content
 article {
-    max-width: $content-width;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 10px;
 }

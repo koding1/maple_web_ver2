@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>직업 랭킹</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    </head>
+
+    <body>
+        <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="#!">Maple</a>
+                </div>
+                <nav>
+                    <div class="nav-mobile">
+                        <a id="nav-toggle" href="#!"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="https://maple.run.goorm.io/">메인 페이지</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/job_rank">직업 랭킹</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/mbti">메BTI (직업 성향 검사)</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#!">Services</a>
+                            <ul class="nav-dropdown">
+                                <li>
+                                    <a href="#!">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Web Development</a>
+                                </li>
+                                <li>
+                                    <a href="#!">Graphic Design</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <h1 class="title">직업 인기도 순위</h1>
+
+        <div class="table_div">
+            
+            <p class="redate">갱신일 : 21/01/09</p>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>직업</th>
+                        <th>캐릭터 수</th>
+                        <th>순위 변동</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in rank_data %}
+                    <tr>
+                        <td>{{i['now_rank']}}</td>
+                        <td>{{i['job']}}</td>
+                        <td>{{i['char_cnt']}}</td>
+                        <td>
+                            {% if i['ex_rank']-i['now_rank'] > 0 %}
+                            <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
+                            {% elif 0 > i['ex_rank']-i['now_rank'] %}
+                            <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
+                            {% else %}
+                            <p>{{i['ex_rank']-i['now_rank']}}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

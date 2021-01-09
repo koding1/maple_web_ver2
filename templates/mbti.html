@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>메BTI</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/navi.css') }}" />
+    </head>
+
+    <body>
+        <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="#!">Maple</a>
+                </div>
+                <nav>
+                    <div class="nav-mobile">
+                        <a id="nav-toggle" href="#!"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="https://maple.run.goorm.io/job_rank">메인 페이지</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/job_rank">직업 랭킹</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/mbti">메BTI (직업 성향 검사)</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <div id="quiz">
+            <div id="quiz-header">
+                <h1>메BTI에 잘 오셨어요 !</h1>
+                <p class="faded">메BTI는 간단한 성향 테스트를 통해 취향에 맞는 직업을 추천해준답니다 !</p>
+            </div>
+            <div id="quiz-start-screen">
+                <p><a href="#" id="quiz-start-btn" class="quiz-button">Start</a></p>
+            </div>
+        </div>
+        
+    </body>
+</html>

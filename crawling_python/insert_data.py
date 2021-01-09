@@ -25,7 +25,7 @@ for k, v in rank_database_dict.items():
     now_rank = v[2]
     ex_rank  = v[3]
     
-    print(job, page,char_cnt,now_rank,ex_rank)
+    print(job, page, char_cnt, now_rank, ex_rank)
     
     # SQL query 실행
     # 직업 이름, 페이지, 캐릭터 수, 현재 등수, 과거 등수

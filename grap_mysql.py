@@ -1,6 +1,5 @@
 import pymysql
 
-
 def grap_data():
     db = pymysql.connect(host='localhost',
                          port = 3306,
