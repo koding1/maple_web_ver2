@@ -24,3 +24,4 @@ if __name__ == "__main__":
 
 
 # https://osasf.net/discussion/610 -> mysql latin1 에서 utf8로 바꾸는 설정 
+# http://jchamill.github.io/jquery-quiz/
