@@ -17,6 +17,9 @@ def job_rank():
 def navi():
     return render_template("mbti.html")
 
+@application.route("/chart")
+def chart():
+    return render_template("chart.html")
 if __name__ == "__main__":
     data = grap_data()
         

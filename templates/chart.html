@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>메BTI</title>
+        <!-- js -->
+
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+        ></script>
+
+        <!-- <script
+            type="text/javascript"
+            src="https://jchamill.github.io/jquery-quiz/jquery.quiz-min.js"
+        ></script> -->
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='js/chart.js') }}"
+        ></script>
+
+        <!-- css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/chart.css') }}" />
+    </head>
+
+    <body>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <main>
+            <h5>Daily Page Hits</h5>
+            <div id="bar-chart"></div>
+        </main>
+        
+    </body>
+</html>
