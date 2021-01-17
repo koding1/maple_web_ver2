@@ -1,3 +1,5 @@
+var global_data = [];
+
 (function ($, window, document, undefined) {
     'use strict';
 
@@ -133,16 +135,16 @@
                     currentQuestionIndex = currentQuestion - 1,
                     correct = questions[currentQuestionIndex].correctIndex,
                     plus_score = 0;
-                
+
                 $answerEl.addClass('correct');
-                
+
                 // response에 답변 tag 이름을 저장
                 response = questions[currentQuestionIndex].selected_tag[selected];
                 // 해당 답변에 대한 점수를 저장
                 plus_score = questions[currentQuestionIndex].plus_score[selected];
-                
+
                 for (var i in tag_dict[response]) {
-                    job_score[tag_dict[response][i]]+=plus_score;
+                    job_score[tag_dict[response][i]] += plus_score;
                 }
                 console.log(job_score);
                 score++;
@@ -214,6 +216,10 @@
 
                 $('#quiz-results').html(max_score_job(job_score)[0]);
 
+                var chart_data = sorted_job(job_score);
+                jQuery('#bar-chart').show();
+                draw_first(chart_data);
+                
                 if (typeof base.options.finishCallback === 'function') {
                     base.options.finishCallback();
                 }
@@ -260,66 +266,284 @@
 
         base.methods.init();
     };
-    
+
     // job_score 를 초기화
     function job_score_init() {
         var job_score = {};
         var job_name = [];
-        job_name = ['히어로', '팔라딘', '다크나이트', '불독', '썬콜', '비숍', 
-                  '보마', '신궁', '패파', '나로', '섀도어', '듀블', 
-                  '바이퍼', '캡틴', '캐슈', '소마', '플위', '윈브',
-                  '나워', '스커', '미하일', '아란', '에반', '배메',
-                  '와헌', '메카', '데슬', '데벤', '제논', '블래',
-                  '메르', '팬텀', '루미', '카이저', '엔버', '제로',
-                  '은월', '키네', '카데나', '일리움', '아크', '호영', '아델', '카인'];
-        for (var i = 0 ; i<job_name.length; i++)
-        {
+        job_name = [
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '불독',
+            '썬콜',
+            '비숍',
+            '보마',
+            '신궁',
+            '패파',
+            '나로',
+            '섀도어',
+            '듀블',
+            '바이퍼',
+            '캡틴',
+            '캐슈',
+            '소마',
+            '플위',
+            '윈브',
+            '나워',
+            '스커',
+            '미하일',
+            '아란',
+            '에반',
+            '배메',
+            '와헌',
+            '메카',
+            '데슬',
+            '데벤',
+            '제논',
+            '블래',
+            '메르',
+            '팬텀',
+            '루미',
+            '카이저',
+            '엔버',
+            '제로',
+            '은월',
+            '키네',
+            '카데나',
+            '일리움',
+            '아크',
+            '호영',
+            '아델',
+            '카인',
+        ];
+        for (var i = 0; i < job_name.length; i++) {
             job_score[job_name[i]] = 0;
         }
-        
+
         return job_score;
     }
-    
+
     // tag_dict 을 초기화
     function tag_dict_init() {
         var tag_dict = {};
 
-        tag_dict['보스'] = ['듀블', '히어로', '불독', '비숍', '캐슈', '플위', '에반', '메카', '팬텀', '제로', '은월', '아크', '아델', '블래'];
-        tag_dict['사냥'] = ['패파', '엔버', '썬콜', '나로', '섀도어', '바이퍼', '에반', '메카', '루미', '키네', '아크', '호영', '아델'];
-        
-        tag_dict['마리수 1티어'] = ['패파', '카데나', '은월', '섀도어', '에반', '키네', '엔버', '아크', '나로', '윈브', '팬텀'];
-        tag_dict['재획머신'] = ['패파', '나로', '섀도어', '바이퍼', '에반', '메카', '데벤', '루미', '엔버', '키네', '아델'];
-        
-        tag_dict['가성비'] = ['히어로', '패파', '나로', '소마', '캐슈', '스커', '아란', '데벤', '블래', '팬텀', '루미', '엔버', '키네', '아크', '아델'];
+        tag_dict['보스'] = [
+            '듀블',
+            '히어로',
+            '불독',
+            '비숍',
+            '캐슈',
+            '플위',
+            '에반',
+            '메카',
+            '팬텀',
+            '제로',
+            '은월',
+            '아크',
+            '아델',
+            '블래',
+        ];
+        tag_dict['사냥'] = [
+            '패파',
+            '엔버',
+            '썬콜',
+            '나로',
+            '섀도어',
+            '바이퍼',
+            '에반',
+            '메카',
+            '루미',
+            '키네',
+            '아크',
+            '호영',
+            '아델',
+        ];
+
+        tag_dict['마리수 1티어'] = [
+            '패파',
+            '카데나',
+            '은월',
+            '섀도어',
+            '에반',
+            '키네',
+            '엔버',
+            '아크',
+            '나로',
+            '윈브',
+            '팬텀',
+        ];
+        tag_dict['재획머신'] = [
+            '패파',
+            '나로',
+            '섀도어',
+            '바이퍼',
+            '에반',
+            '메카',
+            '데벤',
+            '루미',
+            '엔버',
+            '키네',
+            '아델',
+        ];
+
+        tag_dict['가성비'] = [
+            '히어로',
+            '패파',
+            '나로',
+            '소마',
+            '캐슈',
+            '스커',
+            '아란',
+            '데벤',
+            '블래',
+            '팬텀',
+            '루미',
+            '엔버',
+            '키네',
+            '아크',
+            '아델',
+        ];
         tag_dict['중자본 효율'] = [''];
-        tag_dict['투자 효율'] = ['불독', '비숍', '섀도어', '듀블', '바이퍼', '메카', '캐슈', '플위', '윈브', '에반', '아델', '팬텀', '제로', '은월', '카데나', '아크', '호영', '아델'];
-        
-        tag_dict['전사'] = ['히어로', '팔라딘', '다크나이트', '소마', '미하일', '제로', '카이저', '아란', '데슬', '데벤', '제논', '블래', '아델'];
-        tag_dict['마법사'] = ['불독', '썬콜', '비숍', '플위', '에반', '배메', '루미', '일리움', '키네'];
+        tag_dict['투자 효율'] = [
+            '불독',
+            '비숍',
+            '섀도어',
+            '듀블',
+            '바이퍼',
+            '메카',
+            '캐슈',
+            '플위',
+            '윈브',
+            '에반',
+            '아델',
+            '팬텀',
+            '제로',
+            '은월',
+            '카데나',
+            '아크',
+            '호영',
+            '아델',
+        ];
+
+        tag_dict['전사'] = [
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '소마',
+            '미하일',
+            '제로',
+            '카이저',
+            '아란',
+            '데슬',
+            '데벤',
+            '제논',
+            '블래',
+            '아델',
+        ];
+        tag_dict['마법사'] = [
+            '불독',
+            '썬콜',
+            '비숍',
+            '플위',
+            '에반',
+            '배메',
+            '루미',
+            '일리움',
+            '키네',
+        ];
         tag_dict['도적'] = ['나로', '섀도어', '듀블', '나워', '제논', '팬텀', '카데나', '호영'];
         tag_dict['궁수'] = ['보마', '신궁', '패파', '윈브', '와헌', '메르'];
-        tag_dict['해적'] = ['바이퍼', '캡틴', '캐슈', '스커', '메카', '제논', '엔버', '은월', '아크'];
-        
-        tag_dict['STR'] = ['아크', '은월', '히어로', '팔라딘', '다크나이트', '소마', '미하일', '제로', '카이저', '아란', '데슬', '스커',  '블래', '아델', '바이퍼', '캐슈'];
-        tag_dict['INT'] = ['불독', '썬콜', '비숍', '플위', '에반', '배메', '루미', '일리움', '키네'];
+        tag_dict['해적'] = [
+            '바이퍼',
+            '캡틴',
+            '캐슈',
+            '스커',
+            '메카',
+            '제논',
+            '엔버',
+            '은월',
+            '아크',
+        ];
+
+        tag_dict['STR'] = [
+            '아크',
+            '은월',
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '소마',
+            '미하일',
+            '제로',
+            '카이저',
+            '아란',
+            '데슬',
+            '스커',
+            '블래',
+            '아델',
+            '바이퍼',
+            '캐슈',
+        ];
+        tag_dict['INT'] = [
+            '불독',
+            '썬콜',
+            '비숍',
+            '플위',
+            '에반',
+            '배메',
+            '루미',
+            '일리움',
+            '키네',
+        ];
         tag_dict['LUK'] = ['나로', '섀도어', '듀블', '나워', '팬텀', '카데나', '호영'];
         tag_dict['DEX'] = ['보마', '신궁', '패파', '윈브', '와헌', '메르', '캡틴', '메카', '엔버'];
         tag_dict['HP'] = ['데벤'];
         tag_dict['올스텟'] = ['제논'];
-        
-        tag_dict['텔레포트'] = ['불독', '썬콜', '비숍', '에반', '배메', '팬텀', '루미', '일리움']
-        tag_dict['점프'] = ['히어로', '팔라딘', '다크나이트', 
-                  '보마', '신궁', '패파', '나로', '섀도어', '듀블', 
-                  '바이퍼', '캡틴', '캐슈', '소마', '플위', '윈브',
-                  '나워', '스커', '미하일', '아란',
-                  '와헌', '메카', '데슬', '데벤', '제논', '블래',
-                  '메르', '팬텀', '카이저', '엔버', '제로',
-                  '은월', '키네', '카데나', '아크', '호영', '아델', '카인'];
-        
-        
+
+        tag_dict['텔레포트'] = ['불독', '썬콜', '비숍', '에반', '배메', '팬텀', '루미', '일리움'];
+        tag_dict['점프'] = [
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '보마',
+            '신궁',
+            '패파',
+            '나로',
+            '섀도어',
+            '듀블',
+            '바이퍼',
+            '캡틴',
+            '캐슈',
+            '소마',
+            '플위',
+            '윈브',
+            '나워',
+            '스커',
+            '미하일',
+            '아란',
+            '와헌',
+            '메카',
+            '데슬',
+            '데벤',
+            '제논',
+            '블래',
+            '메르',
+            '팬텀',
+            '카이저',
+            '엔버',
+            '제로',
+            '은월',
+            '키네',
+            '카데나',
+            '아크',
+            '호영',
+            '아델',
+            '카인',
+        ];
+
         return tag_dict;
     }
-    
+
     // 가장 높은 점수를 받은 직업이름(들)과 그 점수를 리턴
     function max_score_job(job_score) {
         var score = 0;
@@ -340,7 +564,19 @@
 
         return [job_name, score];
     }
+    function sorted_job(job_score) {
+        // Create items array
+        var items = Object.keys(job_score).map(function (key) {
+            return [key, job_score[key]];
+        });
 
+        // Sort the array based on the second element
+        items.sort(function (first, second) {
+            return second[1] - first[1];
+        });
+        
+        return items;
+    }
     $.quiz.defaultOptions = {
         allowIncorrect: true,
         counter: true,
@@ -361,4 +597,80 @@
             new $.quiz(this, options);
         });
     };
+    function draw_first(chart_data) {
+        google.load('visualization', '1', { packages: ['corechart'] });
+        google.setOnLoadCallback(function(){ drawCharts(chart_data) });
+    }
+
+    function drawCharts(chart_data) {
+        // actual bar chart data
+        var barData = make_data(chart_data);
+        // set bar chart options
+        var barOptions = {
+            focusTarget: 'category',
+            backgroundColor: 'transparent',
+            colors: ['cornflowerblue', 'tomato'],
+            fontName: 'Open Sans',
+            chartArea: {
+                left: 50,
+                top: 10,
+                width: '100%',
+                height: '70%',
+            },
+            bar: {
+                groupWidth: '80%',
+            },
+            hAxis: {
+                textStyle: {
+                    fontSize: 11,
+                },
+            },
+            vAxis: {
+                minValue: 0,
+                maxValue: chart_data[1][1],
+                baselineColor: '#DDD',
+                gridlines: {
+                    color: '#DDD',
+                    count: 4,
+                },
+                textStyle: {
+                    fontSize: 11,
+                },
+            },
+            legend: {
+                position: 'bottom',
+                textStyle: {
+                    fontSize: 12,
+                },
+            },
+            animation: {
+                duration: 1200,
+                easing: 'out',
+                startup: true,
+            },
+        };
+        // draw bar chart twice so it animates
+        var barChart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
+        //barChart.draw(barZeroData, barOptions);
+        barChart.draw(barData, barOptions);
+    }
+    function make_data(chart_data) {
+        // var barData = google.visualization.arrayToDataTable([
+        //             ['Day', 'Page Views'],
+        //             ['Sun', 1050],
+        //             ['Mon', 1370],
+        //             ['Tue', 660],
+        //             ['Wed', 1030],
+        //             ['Thu', 1000],
+        //             ['Fri', 1170],
+        //             ['Sat', 660],
+        //         ]);
+        
+        chart_data.unshift(['직업 이름', '점수'])
+        console.log(chart_data);
+        // console.log(items.slice(0, 5));
+        var barData = google.visualization.arrayToDataTable(chart_data.slice(0, 20));
+        
+        return barData;
+    }
 })(jQuery, window, document);
