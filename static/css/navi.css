@@ -4,7 +4,9 @@
     color: #777;
 }
 #quiz-counter {
-    color: #88449a;
+    color: #000000;
+    font-size: 2.5rem;
+    margin-top: 10%;
 }
 .quiz-container {
     padding: 0.25em;
@@ -69,7 +71,7 @@
 .quiz-container .quiz-button {
     display: inline-block;
     padding: 0.5em 1em;
-    background: #88449a;
+    background: #F68500;
     color: #fff;
 }
 #quiz-buttons a {
@@ -84,7 +86,7 @@
     padding: 0;
 }
 .quiz-results-state #quiz-buttons a {
-    background: #88449a;
+    background: #F68500;
     color: #fff;
 }
 
@@ -219,6 +221,7 @@ nav ul li ul li a {
     display: block;
     content: '';
     transition: all 300ms ease-in-out;
+    margin: 0 auto;
 }
 #nav-toggle span:before {
     top: -10px;
@@ -252,7 +255,7 @@ body {
     background: #ededed;
 }
 main {
-    width: 500px;
+    width: 80%;
     margin: 10px auto;
     padding: 10px 20px 30px;
     background: #fff;
@@ -262,9 +265,11 @@ p {
     margin-top: 2rem;
     font-size: 13px;
 }
-#bar-chart {
+#chart_main {
     display: none;
-    width: 500px;
+}
+#bar-chart {
+    width: 100%;
     height: 300px;
     position: relative;
 }
@@ -275,7 +280,7 @@ p {
 }
 #bar-chart::before,
 #line-chart::before {
-    content: '';
+    /* content: ''; */
     position: absolute;
     display: block;
     width: 240px;

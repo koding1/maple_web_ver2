@@ -131,25 +131,28 @@ var global_data = [];
 
                 var $answerEl = $(answerEl),
                     response = '',
+                    ans_comment = '',
                     selected = $answerEl.data('index'),
                     currentQuestionIndex = currentQuestion - 1,
                     correct = questions[currentQuestionIndex].correctIndex,
                     plus_score = 0;
-
+                    
                 $answerEl.addClass('correct');
 
                 // response에 답변 tag 이름을 저장
                 response = questions[currentQuestionIndex].selected_tag[selected];
                 // 해당 답변에 대한 점수를 저장
                 plus_score = questions[currentQuestionIndex].plus_score[selected];
-
+                // 해당 답변에 대한 코멘트를 저장
+                ans_comment = questions[currentQuestionIndex].ans_comment[selected];
+                
                 for (var i in tag_dict[response]) {
                     job_score[tag_dict[response][i]] += plus_score;
                 }
                 console.log(job_score);
                 score++;
 
-                $('#quiz-response').html(response);
+                $('#quiz-response').html(ans_comment);
                 $('#quiz-controls').fadeIn();
 
                 if (typeof base.options.answerCallback === 'function') {
@@ -214,10 +217,10 @@ var global_data = [];
                     .replace('%score', score)
                     .replace('%total', numQuestions);
 
-                $('#quiz-results').html(max_score_job(job_score)[0]);
+                // $('#quiz-results').html(max_score_job(job_score)[0]);
 
                 var chart_data = sorted_job(job_score);
-                jQuery('#bar-chart').show();
+                jQuery('#chart_main').show();
                 draw_first(chart_data);
                 
                 if (typeof base.options.finishCallback === 'function') {
@@ -231,8 +234,12 @@ var global_data = [];
                 $('#quiz-counter').show();
                 $('.question-container:first-child').show().addClass('active-question');
                 base.methods.updateCounter();
+                
+                jQuery('#chart_main').hide();
+                
             },
             reset: function () {
+                job_score = job_score_init();
                 answerLocked = false;
                 currentQuestion = 1;
                 score = 0;
@@ -540,7 +547,15 @@ var global_data = [];
             '아델',
             '카인',
         ];
-
+        
+        
+        tag_dict['필수 링크'] = ['메르', '에반', '아란', '데벤', '팬텀', '호영', '제로', '아크', '제논', '데슬', '키네', '일리움', '데슬', '보마', '신궁', '패파'];
+        
+        tag_dict['쉬운 접근'] = ['히어로', '팔라딘', '다크나이트', '불독', '썬콜', '비숍', '보마', '패파', '나로', '섀도어', '듀블', '바이퍼', '캡틴', '캐슈', '소마', '플위', '윈브', '스커', '미하일', '아란', '와헌', '데슬', '데벤', '제논', '팬텀', '루미', '카이저', '엔버', '은월', '아델'];
+        tag_dict['신컨'] = ['신궁', '나워', '에반', '배메', '메카', '블래', '메르', '제로', '키네', '카데나', '일리움', '아크', '호영'];
+        
+        tag_dict['유니크'] = ['팔라딘', '다크나이트', '보마', '신궁', '미하일', '일리움', '캡틴', '블래', '배메', '스커', '호영', '나워', '메카', '와헌', '카이저', '카데나', '키네', '소마', '루미', '데슬', '플위', '제논', '메르'];
+        
         return tag_dict;
     }
 
@@ -589,7 +604,7 @@ var global_data = [];
         gameOverScreen: '#quiz-gameover-screen',
         nextButtonText: 'Next',
         finishButtonText: 'Finish',
-        restartButtonText: 'Restart',
+        restartButtonText: '다시 해볼래요 !',
     };
 
     $.fn.quiz = function (options) {
@@ -612,13 +627,13 @@ var global_data = [];
             colors: ['cornflowerblue', 'tomato'],
             fontName: 'Open Sans',
             chartArea: {
-                left: 50,
+                left: 0,
                 top: 10,
                 width: '100%',
                 height: '70%',
             },
             bar: {
-                groupWidth: '80%',
+                groupWidth: '85%',
             },
             hAxis: {
                 textStyle: {
