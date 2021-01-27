@@ -1,12 +1,41 @@
-/* https://codepen.io/jchamill/pen/garoqg */
+/* 카카오 광고 */
+.ad1 {
+    width: 320px;
+    height: 100px;
+    position:absolute;
+    top: 82%;
+    left: 50%;
+    /* margin-left: -160px; */
+    margin-left: -322px;
+    margin-top: -50px;
+}
+.ad2 {
+    width: 320px;
+    height: 100px;
+    position:absolute;
+    top: 82%;
+    left: 50%;
+    margin-left: 2px;
+    margin-top: -50px;
+}
+.ad3 {
+    width: 728px;
+    height: 90px;
+    position:absolute;
+    top: 93%;
+    left: 50%;
+    margin-left: -364px;
+    margin-top: -45px;
+}
 
+/* https://codepen.io/jchamill/pen/garoqg */
 .faded {
     color: #777;
 }
 #quiz-counter {
     color: #000000;
     font-size: 2.5rem;
-    margin-top: 10%;
+    margin-top: 3%;
 }
 .quiz-container {
     padding: 0.25em;
@@ -262,7 +291,7 @@ main {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 p {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     font-size: 13px;
 }
 #chart_main {

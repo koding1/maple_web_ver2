@@ -115,6 +115,7 @@ var global_data = [];
             start: function () {
                 base.$el.removeClass('quiz-start-state').addClass('quiz-questions-state');
                 $(startScreen).hide();
+                $('#quiz-header').hide();
                 $('#quiz-controls').hide();
                 $('#quiz-finish-btn').hide();
                 $('#quiz-restart-btn').hide();
@@ -258,7 +259,7 @@ var global_data = [];
                 base.methods.reset();
                 base.$el.addClass('quiz-start-state');
                 $(startScreen).show();
-
+                $('quiz-header').show();
                 if (typeof base.options.homeCallback === 'function') {
                     base.options.homeCallback();
                 }
@@ -556,6 +557,21 @@ var global_data = [];
         
         tag_dict['유니크'] = ['팔라딘', '다크나이트', '보마', '신궁', '미하일', '일리움', '캡틴', '블래', '배메', '스커', '호영', '나워', '메카', '와헌', '카이저', '카데나', '키네', '소마', '루미', '데슬', '플위', '제논', '메르'];
         
+        tag_dict['연계'] = ['패파', '아크', '아란', '호영', '메르', '카데나', '에반', '제로', '스커', '블래', '일리움'];
+        
+        tag_dict['딜러'] = ['아델', '듀블', '패파', '썬콜', '소마', '아크', '히어로', '섀도어', '데벤', '나로', '바이퍼', '다크나이트', '엔버', '아란', '호영', '윈브', '팬텀', '은월', '키네', '캐슈', '카이저', '루미', '메르', '에반', '카데나', '데슬', '불독', '스커', '나워', '플위', '신궁', '제논', '블래' , '배메', '캡틴', '보마', '와헌', '일리움', '메카'];
+        tag_dict['서포터'] = ['제로', '비숍', '팔라딘', '팬텀', '은월', '플위', '와헌'];
+        
+        tag_dict['노바'] = ['카이저', '엔버', '카데나'];
+        tag_dict['데몬'] = ['데벤', '데슬'];
+        tag_dict['레지스탕스'] = ['블래', '배메', '와헌', '메카', '제논'];
+        tag_dict['레프'] = ['아델', '일리움', '아크'];
+        tag_dict['모험가'] = ['히어로', '팔라딘', '다크나이트', '불독', '썬콜', '비숍', '보마', '신궁', '패파', '나로', '섀도어', '듀블', '바이퍼', '캡틴', '캐슈'];
+        tag_dict['시그너스'] = ['소마', '미하일', '플위', '윈브', '나워', '스커'];
+        tag_dict['아니마'] = ['호영'];
+        tag_dict['영웅'] = ['아란', '에반', '루미', '메르', '팬텀', '은월'];
+        tag_dict['초능력자'] = ['키네'];
+        tag_dict['초월자'] = ['제로'];
         return tag_dict;
     }
 

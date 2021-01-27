@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-
+import random
 
 # j, d, page 순서
 job = {"히어로" : [1, 12, 30], "팔라딘" : [1, 22, 19], "다크나이트" : [1, 32, 19] , 
@@ -72,7 +72,7 @@ def page_serch(val):
                 re_data = [page_num, int(data[0].select('td > p')[0].get_text())-1]
                 return re_data
                 
-        time.sleep(1)
+        time.sleep(random.uniform(1, 2))
         
 def for_crawling_mysql():
     re_data = []

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E39YJ9C3B4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-E39YJ9C3B4');
+        </script>
         <title>직업 랭킹</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     </head>
@@ -9,7 +20,7 @@
         <section class="navigation">
             <div class="nav-container">
                 <div class="brand">
-                    <a href="#!">Maple</a>
+                    <a href="#!">JOBMAPLE</a>
                 </div>
                 <nav>
                     <div class="nav-mobile">
@@ -44,11 +55,55 @@
             </div>
         </section>
 
+        <div class="ad1">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-WFNM1SonV2x5BJo8"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <div class="ad2">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-0eSJGuMpO1xFyqpv"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <div class="ad3">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-bAqpnLBHxueUbMpF"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
         <h1 class="title">직업 인기도 순위</h1>
 
         <div class="table_div">
-            
-            <p class="redate">갱신일 : 21/01/09</p>
+            <p class="redate">갱신일 : 21/01/23</p>
             <table class="content-table">
                 <thead>
                     <tr>
@@ -67,17 +122,31 @@
                         <td>{{i['char_cnt']}}</td>
                         <td>
                             {% if i['ex_rank']-i['now_rank'] > 0 %}
-                                <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
+                            <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
                             {% elif 0 > i['ex_rank']-i['now_rank'] %}
-                                <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
+                            <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
                             {% else %}
-                                <p>{{i['ex_rank']-i['now_rank']}}</p>
+                            <p>{{i['ex_rank']-i['now_rank']}}</p>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="ad4">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-U4zCcFo4y9BMiMvE"
+                data-ad-width="320"
+                data-ad-height="100"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
         </div>
     </body>
 </html>

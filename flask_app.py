@@ -23,7 +23,7 @@ def chart():
 if __name__ == "__main__":
     data = grap_data()
         
-    application.run(host='0.0.0.0', port=5000)
+    # application.run(host='0.0.0.0', port=5000)
 
 
 # https://osasf.net/discussion/610 -> mysql latin1 에서 utf8로 바꾸는 설정 
