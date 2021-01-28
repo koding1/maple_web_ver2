@@ -1,3 +1,4 @@
+// 버전 1.1
 var global_data = [];
 
 (function ($, window, document, undefined) {
@@ -7,6 +8,7 @@ var global_data = [];
         var base = this;
         var tag_dict = {};
         var job_score = {};
+        var answer_re;
 
         job_score = job_score_init();
         tag_dict = tag_dict_init();
@@ -49,6 +51,7 @@ var global_data = [];
 
                 $(document).on('click', '.answers a', function (e) {
                     e.preventDefault();
+                    answer_re = this;
                     base.methods.answerQuestion(this);
                 });
 
@@ -125,10 +128,11 @@ var global_data = [];
                 base.methods.updateCounter();
             },
             answerQuestion: function (answerEl) {
+                $('.answers a').removeClass();
                 if (answerLocked) {
                     return;
                 }
-                answerLocked = true;
+                answerLocked = false;
 
                 var $answerEl = $(answerEl),
                     response = '',
@@ -137,8 +141,41 @@ var global_data = [];
                     currentQuestionIndex = currentQuestion - 1,
                     correct = questions[currentQuestionIndex].correctIndex,
                     plus_score = 0;
-                    
+
                 $answerEl.addClass('correct');
+
+                // // response에 답변 tag 이름을 저장
+                // response = questions[currentQuestionIndex].selected_tag[selected];
+                // // 해당 답변에 대한 점수를 저장
+                // plus_score = questions[currentQuestionIndex].plus_score[selected];
+                // // 해당 답변에 대한 코멘트를 저장
+                ans_comment = questions[currentQuestionIndex].ans_comment[selected];
+
+                // for (var i in tag_dict[response]) {
+                //     job_score[tag_dict[response][i]] += plus_score;
+                // }
+                // console.log(job_score);
+                // score++;
+
+                $('#quiz-response').html(ans_comment);
+                $('#quiz-controls').fadeIn();
+
+                // if (typeof base.options.answerCallback === 'function') {
+                //     base.options.answerCallback(
+                //         currentQuestion,
+                //         selected,
+                //         questions[currentQuestionIndex]
+                //     );
+                // }
+            },
+            real_score_update: function () {
+                var $answerEl = $(answer_re),
+                    response = '',
+                    ans_comment = '',
+                    selected = $answerEl.data('index'),
+                    currentQuestionIndex = currentQuestion - 1,
+                    correct = questions[currentQuestionIndex].correctIndex,
+                    plus_score = 0;
 
                 // response에 답변 tag 이름을 저장
                 response = questions[currentQuestionIndex].selected_tag[selected];
@@ -146,26 +183,20 @@ var global_data = [];
                 plus_score = questions[currentQuestionIndex].plus_score[selected];
                 // 해당 답변에 대한 코멘트를 저장
                 ans_comment = questions[currentQuestionIndex].ans_comment[selected];
-                
+
                 for (var i in tag_dict[response]) {
                     job_score[tag_dict[response][i]] += plus_score;
                 }
                 console.log(job_score);
                 score++;
 
-                $('#quiz-response').html(ans_comment);
-                $('#quiz-controls').fadeIn();
-
                 if (typeof base.options.answerCallback === 'function') {
-                    base.options.answerCallback(
-                        currentQuestion,
-                        selected,
-                        questions[currentQuestionIndex]
-                    );
+                    base.options.answerCallback(currentQuestion, selected, questions[currentQuestionIndex]);
                 }
             },
             nextQuestion: function () {
                 answerLocked = false;
+                base.methods.real_score_update();
 
                 $('.active-question')
                     .hide()
@@ -206,6 +237,7 @@ var global_data = [];
                 $(gameOverScreen).show();
             },
             finish: function () {
+                base.methods.real_score_update();
                 base.$el.removeClass('quiz-questions-state').addClass('quiz-results-state');
                 $('.active-question').hide().removeClass('active-question');
                 $('#quiz-counter').hide();
@@ -223,7 +255,7 @@ var global_data = [];
                 var chart_data = sorted_job(job_score);
                 jQuery('#chart_main').show();
                 draw_first(chart_data);
-                
+
                 if (typeof base.options.finishCallback === 'function') {
                     base.options.finishCallback();
                 }
@@ -235,9 +267,8 @@ var global_data = [];
                 $('#quiz-counter').show();
                 $('.question-container:first-child').show().addClass('active-question');
                 base.methods.updateCounter();
-                
+
                 jQuery('#chart_main').hide();
-                
             },
             reset: function () {
                 job_score = job_score_init();
@@ -350,7 +381,6 @@ var global_data = [];
             '은월',
             '아크',
             '아델',
-            '블래',
         ];
         tag_dict['사냥'] = [
             '패파',
@@ -404,7 +434,6 @@ var global_data = [];
             '스커',
             '아란',
             '데벤',
-            '블래',
             '팬텀',
             '루미',
             '엔버',
@@ -548,30 +577,187 @@ var global_data = [];
             '아델',
             '카인',
         ];
-        
-        
-        tag_dict['필수 링크'] = ['메르', '에반', '아란', '데벤', '팬텀', '호영', '제로', '아크', '제논', '데슬', '키네', '일리움', '데슬', '보마', '신궁', '패파'];
-        
-        tag_dict['쉬운 접근'] = ['히어로', '팔라딘', '다크나이트', '불독', '썬콜', '비숍', '보마', '패파', '나로', '섀도어', '듀블', '바이퍼', '캡틴', '캐슈', '소마', '플위', '윈브', '스커', '미하일', '아란', '와헌', '데슬', '데벤', '제논', '팬텀', '루미', '카이저', '엔버', '은월', '아델'];
-        tag_dict['신컨'] = ['신궁', '나워', '에반', '배메', '메카', '블래', '메르', '제로', '키네', '카데나', '일리움', '아크', '호영'];
-        
-        tag_dict['유니크'] = ['팔라딘', '다크나이트', '보마', '신궁', '미하일', '일리움', '캡틴', '블래', '배메', '스커', '호영', '나워', '메카', '와헌', '카이저', '카데나', '키네', '소마', '루미', '데슬', '플위', '제논', '메르'];
-        
-        tag_dict['연계'] = ['패파', '아크', '아란', '호영', '메르', '카데나', '에반', '제로', '스커', '블래', '일리움'];
-        
-        tag_dict['딜러'] = ['아델', '듀블', '패파', '썬콜', '소마', '아크', '히어로', '섀도어', '데벤', '나로', '바이퍼', '다크나이트', '엔버', '아란', '호영', '윈브', '팬텀', '은월', '키네', '캐슈', '카이저', '루미', '메르', '에반', '카데나', '데슬', '불독', '스커', '나워', '플위', '신궁', '제논', '블래' , '배메', '캡틴', '보마', '와헌', '일리움', '메카'];
-        tag_dict['서포터'] = ['제로', '비숍', '팔라딘', '팬텀', '은월', '플위', '와헌'];
-        
+
+        tag_dict['필수 링크'] = [
+            '메르',
+            '에반',
+            '아란',
+            '데벤',
+            '팬텀',
+            '호영',
+            '제로',
+            '아크',
+            '제논',
+            '데슬',
+            '키네',
+            '일리움',
+            '데슬',
+            '보마',
+            '신궁',
+            '패파',
+        ];
+
+        tag_dict['쉬운 접근'] = [
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '불독',
+            '썬콜',
+            '비숍',
+            '보마',
+            '패파',
+            '나로',
+            '섀도어',
+            '듀블',
+            '바이퍼',
+            '캡틴',
+            '캐슈',
+            '소마',
+            '플위',
+            '윈브',
+            '스커',
+            '미하일',
+            '아란',
+            '와헌',
+            '데슬',
+            '데벤',
+            '제논',
+            '팬텀',
+            '루미',
+            '카이저',
+            '엔버',
+            '은월',
+            '아델',
+        ];
+        tag_dict['신컨'] = [
+            '신궁',
+            '나워',
+            '에반',
+            '배메',
+            '메카',
+            '블래',
+            '메르',
+            '제로',
+            '키네',
+            '카데나',
+            '일리움',
+            '아크',
+            '호영',
+        ];
+
+        tag_dict['유니크'] = [
+            '팔라딘',
+            '다크나이트',
+            '보마',
+            '신궁',
+            '미하일',
+            '일리움',
+            '캡틴',
+            '블래',
+            '배메',
+            '스커',
+            '호영',
+            '나워',
+            '메카',
+            '와헌',
+            '카이저',
+            '카데나',
+            '키네',
+            '소마',
+            '루미',
+            '데슬',
+            '플위',
+            '제논',
+            '메르',
+        ];
+
+        tag_dict['연계'] = [
+            '패파',
+            '아크',
+            '아란',
+            '호영',
+            '메르',
+            '카데나',
+            '에반',
+            '제로',
+            '스커',
+            '블래',
+            '일리움',
+        ];
+
+        tag_dict['딜러'] = [
+            '아델',
+            '듀블',
+            '패파',
+            '썬콜',
+            '소마',
+            '아크',
+            '히어로',
+            '섀도어',
+            '데벤',
+            '나로',
+            '바이퍼',
+            '다크나이트',
+            '엔버',
+            '아란',
+            '호영',
+            '윈브',
+            '팬텀',
+            '은월',
+            '키네',
+            '캐슈',
+            '카이저',
+            '루미',
+            '메르',
+            '에반',
+            '카데나',
+            '데슬',
+            '불독',
+            '스커',
+            '나워',
+            '플위',
+            '신궁',
+            '제논',
+            '블래',
+            '배메',
+            '캡틴',
+            '보마',
+            '와헌',
+            '일리움',
+            '메카',
+        ];
+        tag_dict['서포터'] = ['제로', '비숍', '팔라딘', '팬텀', '은월', '플위', '와헌', '배메'];
+
         tag_dict['노바'] = ['카이저', '엔버', '카데나'];
         tag_dict['데몬'] = ['데벤', '데슬'];
         tag_dict['레지스탕스'] = ['블래', '배메', '와헌', '메카', '제논'];
         tag_dict['레프'] = ['아델', '일리움', '아크'];
-        tag_dict['모험가'] = ['히어로', '팔라딘', '다크나이트', '불독', '썬콜', '비숍', '보마', '신궁', '패파', '나로', '섀도어', '듀블', '바이퍼', '캡틴', '캐슈'];
+        tag_dict['모험가'] = [
+            '히어로',
+            '팔라딘',
+            '다크나이트',
+            '불독',
+            '썬콜',
+            '비숍',
+            '보마',
+            '신궁',
+            '패파',
+            '나로',
+            '섀도어',
+            '듀블',
+            '바이퍼',
+            '캡틴',
+            '캐슈',
+        ];
         tag_dict['시그너스'] = ['소마', '미하일', '플위', '윈브', '나워', '스커'];
         tag_dict['아니마'] = ['호영'];
         tag_dict['영웅'] = ['아란', '에반', '루미', '메르', '팬텀', '은월'];
         tag_dict['초능력자'] = ['키네'];
         tag_dict['초월자'] = ['제로'];
+        
+        tag_dict['쉬운코강'] = ['나워', '비숍', '섀도어', '신궁', '나로', '썬콜', '엔버', '소마', '히어로', '바이퍼', '루미', '다크나이트', '신궁', '팔라딘'];
+        
+        tag_dict['설치기'] = ['메카', '배메', '일리움', '호영', '썬콜', '캡틴', '캐슈', '키네'];
         return tag_dict;
     }
 
@@ -605,9 +791,10 @@ var global_data = [];
         items.sort(function (first, second) {
             return second[1] - first[1];
         });
-        
+
         return items;
     }
+    
     $.quiz.defaultOptions = {
         allowIncorrect: true,
         counter: true,
@@ -630,7 +817,9 @@ var global_data = [];
     };
     function draw_first(chart_data) {
         google.load('visualization', '1', { packages: ['corechart'] });
-        google.setOnLoadCallback(function(){ drawCharts(chart_data) });
+        google.setOnLoadCallback(function () {
+            drawCharts(chart_data);
+        });
     }
 
     function drawCharts(chart_data) {
@@ -696,12 +885,12 @@ var global_data = [];
         //             ['Fri', 1170],
         //             ['Sat', 660],
         //         ]);
-        
-        chart_data.unshift(['직업 이름', '점수'])
+
+        chart_data.unshift(['직업 이름', '점수']);
         console.log(chart_data);
         // console.log(items.slice(0, 5));
         var barData = google.visualization.arrayToDataTable(chart_data.slice(0, 20));
-        
+
         return barData;
     }
 })(jQuery, window, document);

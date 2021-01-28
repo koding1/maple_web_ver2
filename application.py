@@ -25,7 +25,8 @@ if __name__ == "__main__":
         
     application.run(host='0.0.0.0', port=5000)
 
-
+    
+# http://www.inven.co.kr/board/maple/2299
 # https://osasf.net/discussion/610 -> mysql latin1 에서 utf8로 바꾸는 설정 
 # http://jchamill.github.io/jquery-quiz/
 # https://blog.naver.com/PostView.nhn?blogId=altmshfkgudtjr&logNo=221581049939&from=search&redirect=Log&widgetTypeCall=true&directAccess=false

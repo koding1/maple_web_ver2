@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- 패치 1.1 -->
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-E39YJ9C3B4"></script>
         <script>
@@ -143,7 +144,7 @@
                         options: ['전사', '마법사', '도적', '궁수', '해적', '상관 없음'],
                         correctIndex: 1,
                         selected_tag: ['전사', '마법사', '도적', '궁수', '해적', ''],
-                        plus_score: [3, 3, 3, 3, 3, 0],
+                        plus_score: [5, 5, 5, 5, 5, 0],
                         ans_comment: [
                             '전사만큼 멋진 직업이 없는 것 같아요 !',
                             '눈이 번쩍 뜨일만큼 화려하답니다 !',
@@ -160,7 +161,7 @@
                         options: ['STR', 'INT', 'LUK', 'DEX', 'HP', '상관 없음'],
                         correctIndex: 1,
                         selected_tag: ['STR', 'INT', 'LUK', 'DEX', 'HP', ''],
-                        plus_score: [3, 3, 3, 3, 3, 0],
+                        plus_score: [5, 5, 5, 5, 5, 0],
                         ans_comment: [
                             '알겠어요 !!',
                             '알겠어요 !!',
@@ -213,7 +214,7 @@
                         options: ['그렇다', '아니다'],
                         correctIndex: 1,
                         selected_tag: ['유니크', '인기직업'],
-                        plus_score: [5, 0],
+                        plus_score: [8, 0],
                         ans_comment: [
                             '지나치게 흔하면, 매력이 떨어지는 것 같아요.',
                             '사실, 인기있는 직업은 이유가 있는 법이랍니다 !',
@@ -279,6 +280,45 @@
                             '알겠어요 !!',
                         ],
                     },
+                    {
+                        q: '코어 강화 난이도에 대해서 어떤 의견이신가요 ?',
+                        options: ['매우 중요하다', '크게 상관 없다', '그게 뭐지 ..?'],
+                        correctIndex: 1,
+                        selected_tag: ['쉬운코강', '', '쉬운코강'],
+                        plus_score: [3, 0, 2],
+                        ans_comment: [
+                            '코강만큼 스트레스 받는 일이 없죠 ㅠㅠ',
+                            '내 직업을 위해서라면 무엇도 할 수 있는 당신 !!',
+                            '알겠어요 !!',
+                        ],
+                    },
+                    {
+                        q: '설치기에 대해서 어떻게 생각하세요 ?',
+                        options: ['꼭 있어야 해!!', '크게 상관 없다', '싫어한다', '그게 뭐지 ..?'],
+                        correctIndex: 1,
+                        selected_tag: ['설치기', '', '설치기', ''],
+                        plus_score: [5, 0, -5, 0],
+                        ans_comment: [
+                            '저도 설치기 직업을 엄청 좋아해요 !!',
+                            '알겠어요 !!',
+                            '설치기보다는 타격감 있는 공격들이 재밌는 것 같아요 !',
+                            '알겠어요 !!',
+                        ],
+                    },
+                    // {
+                    //     q: '목표로 하시는 보스가 있으신가요 ?',
+                    //     options: ['카루타', '노말스데미', '루시드', '그 이상의 하드보스', '그게 뭐지 ..?'],
+                    //     correctIndex: 1,
+                    //     selected_tag: ['카루타깡패', '스데미깡패', '루시드깡패', '보스깡패', ''],
+                    //     plus_score: [2, 2, 2, 2, 0],
+                    //     ans_comment: [
+                    //         '알겠어요 !!',
+                    //         '알겠어요 !!',
+                    //         '알겠어요 !!',
+                    //         '알겠어요 !!',
+                    //         '알겠어요 !!',
+                    //     ],
+                    // },
                 ],
             });
         </script>
