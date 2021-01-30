@@ -90,7 +90,7 @@ def for_crawling_mysql():
         re_page_num = page_num
         
         while page_num <= 1000:
-            print(page_num, "페이지를 탐색 합니다.")
+            print(page_num, "페이지를 탐색 할게요.")
             url = 'https://maplestory.nexon.com/Ranking/World/Total?page=' + str(page_num) + '&j=' + str(j) + '&d=' + str(d)
             # User 설정
             res = requests.get(url, headers = headers)
