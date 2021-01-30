@@ -1,4 +1,5 @@
 /* 카카오 광고 */
+
 .ad1 {
     width: 160px;
     height: 600px;
@@ -6,36 +7,39 @@
     position:absolute;
     margin-top: 100px;
 }
+
 .ad2 {
     width: 160px;
     height: 600px;
     float:left;
     position:absolute;
-    margin-top: 1100px;
+    margin-top: 710px;
 }
+
 .ad3 {
     width: 160px;
     height: 600px;
-    float:left;
+    float:right;
     position:absolute;
-    margin-top: 2100px;
+    margin-top: 100px;
+    right: 0px;
 }
+
 .ad4 {
-    width: 320px;
-    height: 100px;
-    /* position:absolute;
-    top: 80%;
-    left: 50%;
-    margin-left: -160px;
-    margin-top: -50px; */
-    margin: 0 auto;
+    width: 160px;
+    height: 600px;
+    float:right;
+    position:absolute;
+    margin-top: 710px;
+    right: 0px;
 }
+
 .title {
     font-size: 4rem;
     text-align: center;
 }
 .table_div {
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
 }
 
@@ -54,7 +58,7 @@
     margin: 0% auto;
     /* margin: 25px 0; */
     font-size: 0.9em;
-    min-width: 400px;
+    min-width: 500px;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);

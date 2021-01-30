@@ -53,13 +53,15 @@ print("정렬 완료")
 rank_database = grap_data()
 print("mysql 로드 완료")
 
-# now_rank 수정, ex_rank 수정
+# data의 now_rank 수정, ex_rank 수정, ex_char_cnt 수정
 cnt = 1
 for i in data:
     i['now_rank'] = cnt
     cnt += 1
     mysql_now_rank = next(item for item in rank_database if (item["job"] == i["job"]))['now_rank']
+    mysql_now_char_cnt = next(item for item in rank_database if (item["job"] == i["job"]))['char_cnt']
     i['ex_rank'] = mysql_now_rank
+    i['ex_char_cnt'] = mysql_now_char_cnt
 print("rank 삽입 완료")
 
 db = pymysql.connect(host='localhost',
@@ -72,7 +74,7 @@ db = pymysql.connect(host='localhost',
 cursor = db.cursor()
 
 sql = """update rank_table 
-         set page=%s, char_cnt=%s, now_rank=%s, ex_rank=%s
+         set page=%s, char_cnt=%s, now_rank=%s, ex_rank=%s, ex_char_cnt=%s
          where job = %s"""
 
 for i in data:
@@ -81,12 +83,13 @@ for i in data:
     char_cnt = i['char_cnt']
     now_rank = i['now_rank']
     ex_rank  = i['ex_rank']
+    ex_char_cnt = i['ex_char_cnt'];
     
-    print(page,char_cnt,now_rank,ex_rank, job)
+    print(page, char_cnt, now_rank, ex_rank, ex_char_cnt, job)
     
     #SQL query 실행
     #직업 이름, 페이지, 캐릭터 수, 현재 등수, 과거 등수
-    cursor.execute(sql, (page, char_cnt, now_rank, ex_rank, job))
+    cursor.execute(sql, (page, char_cnt, now_rank, ex_rank, ex_char_cnt, job))
 print("데이터 베이스에 push 완료")
 
 db.commit()

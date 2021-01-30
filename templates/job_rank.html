@@ -99,7 +99,22 @@
                 async
             ></script>
         </div>
-
+        
+        <div class="ad4">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-msdushpfoGROblyO"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+        
         <h1 class="title">직업 인기도 순위</h1>
 
         <div class="table_div">
@@ -110,6 +125,7 @@
                         <th>순위</th>
                         <th>직업</th>
                         <th>캐릭터 수</th>
+                        <th>캐릭터 변동</th>
                         <th>순위 변동</th>
                     </tr>
                 </thead>
@@ -120,6 +136,15 @@
                         <td>{{i['now_rank']}}</td>
                         <td>{{i['job']}}</td>
                         <td>{{i['char_cnt']}}</td>
+                        <td>
+                            {% if i['char_cnt']-i['ex_char_cnt'] > 0 %}
+                            <p style="color: red;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% elif 0 > i['char_cnt']-i['ex_char_cnt'] %}
+                            <p style="color: blue;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% else %}
+                            <p>{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if i['ex_rank']-i['now_rank'] > 0 %}
                             <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
@@ -133,20 +158,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        <div class="ad4">
-            <ins
-                class="kakao_ad_area"
-                style="display: none;"
-                data-ad-unit="DAN-U4zCcFo4y9BMiMvE"
-                data-ad-width="320"
-                data-ad-height="100"
-            ></ins>
-            <script
-                type="text/javascript"
-                src="//t1.daumcdn.net/kas/static/ba.min.js"
-                async
-            ></script>
         </div>
     </body>
 </html>

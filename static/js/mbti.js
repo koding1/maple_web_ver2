@@ -81,6 +81,7 @@ var global_data = [];
                 $.each(questions, function (i, question) {
                     quizHtml += '<div class="question-container">';
                     quizHtml += '<p class="question">' + question.q + '</p>';
+                    quizHtml += '<p class="sub">' + question.sub + '</p>';
                     quizHtml += '<ul class="answers">';
                     $.each(question.options, function (index, answer) {
                         quizHtml +=
@@ -123,6 +124,7 @@ var global_data = [];
                 $('#quiz-finish-btn').hide();
                 $('#quiz-restart-btn').hide();
                 $('#questions').show();
+                $('#sub').show();
                 $('#quiz-counter').show();
                 $('.question-container:first-child').show().addClass('active-question');
                 base.methods.updateCounter();
@@ -727,7 +729,8 @@ var global_data = [];
             '메카',
         ];
         tag_dict['서포터'] = ['제로', '비숍', '팔라딘', '팬텀', '은월', '플위', '와헌', '배메'];
-
+        tag_dict['탱커'] = ['미하일', '팔라딘'];
+        
         tag_dict['노바'] = ['카이저', '엔버', '카데나'];
         tag_dict['데몬'] = ['데벤', '데슬'];
         tag_dict['레지스탕스'] = ['블래', '배메', '와헌', '메카', '제논'];
