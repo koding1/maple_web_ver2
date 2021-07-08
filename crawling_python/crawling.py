@@ -27,6 +27,7 @@ job = {"히어로" : [1, 12, 34], "팔라딘" : [1, 22, 20], "다크나이트" :
        "아크" : [23, -1, 45] ,
        "호영" : [24, -1, 8] ,
        "아델" : [25, -1, 45] ,
+       "카인" : [26, -1, 1] ,
       }
 
 # 유저 설정
@@ -80,6 +81,9 @@ def for_crawling_mysql():
     job_mysql = grap_data()
     cnt = 0
     re_data = []
+    # 페이지 넘버 증가 계수 (상수)
+    PAGE_NUM_PLUS = 8
+    
     for i in job_mysql:
         job_name = i['job']
         j = job[i['job']][0]
@@ -103,7 +107,7 @@ def for_crawling_mysql():
             # 해당 페이지의 마지막 캐릭터 레벨 >= FIND_LEVEL 이라면 -> 다음 페이지
             if int(str(data[9].select('td')[2])[7:10]) >= FIND_LEVEL:
                 re_page_num = page_num
-                page_num += 1
+                page_num += PAGE_NUM_PLUS
             else:
                 i = 8
                 while i >= 0:
@@ -122,7 +126,7 @@ def for_crawling_mysql():
                     page_num = 99999
                     break
                     
-            time.sleep(0.3)
+            time.sleep(random.uniform(1, 2))
         print(re_data[-1])
     return re_data
 
@@ -139,5 +143,3 @@ if __name__ == '__main__':
         print(job[find_job])
         re = page_serch(job[find_job])
         print(re[0], re[1])
-    
-

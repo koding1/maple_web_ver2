@@ -18,6 +18,7 @@ cursor = db.cursor()
 sql = """insert into rank_table(job, page, char_cnt, now_rank, ex_rank)
          values (%s, %s, %s, %s, %s)"""
 
+    
 for k, v in rank_database_dict.items():
     job      = k
     page     = v[0]
