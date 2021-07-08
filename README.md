@@ -56,13 +56,13 @@ flask, python, html, css, js, mysql
 크롤링은 메이플스토리 랭크 페이지(https://maplestory.nexon.com/Ranking/World/Total)에서 진행되었습니다.
 크롤링 라이브러리는 BeautifulSoup를 사용했고, Bypass 를 위해 Request에 User-Agent 추가 및 크롤링 시 랜덤 딜레이를 이용하였습니다.
 
-'''
+```
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
-'''
+```
 
-'''
+```
 time.sleep(random.uniform(1, 2))
-'''
+```
 
 기준 레벨이 되는 'FIND_LEVEL-1' 인 레벨을 찾을 때 까지 PAGE_NUM_PLUS 만큼 페이지를 넘겨가며 서치하고,    
 해당 인덱스 + 1 을 FIND_LEVEL의 유저 수로 정의합니다.
