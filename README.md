@@ -52,7 +52,8 @@ flask, python, html, css, js, mysql
 
 
 ### Maple Rank Page (크롤링을 이용하여 캐릭터의 인기도를 분석 및 제공)
-1. 크롤링
+1. 크롤링     
+
 크롤링은 메이플스토리 랭크 페이지(https://maplestory.nexon.com/Ranking/World/Total)에서 진행되었습니다.
 크롤링 라이브러리는 BeautifulSoup를 사용했고, Bypass 를 위해 Request에 User-Agent 추가 및 크롤링 시 랜덤 딜레이를 이용하였습니다.
 
@@ -68,7 +69,8 @@ time.sleep(random.uniform(1, 2))
 해당 인덱스 + 1 을 FIND_LEVEL의 유저 수로 정의합니다.
 
 
-2. 페이지 구성
+2. 페이지 구성    
+
 크롤링으로 얻은 데이터를 mysql에 저장하고, 이를 Read 하여 페이지에 보여줍니다.    
 초기에는 캐릭터 변동, 순위 변동 란이 없었지만, 사용자들의 피드백으로 추가하게 되었습니다.
 ![Rank_page_img2](./docs/rank2.jpg)
@@ -83,3 +85,13 @@ time.sleep(random.uniform(1, 2))
 
 
 ## 사용자 반응 및 통계
+
+사용자에 대한 통계와 정보를 수집하기 위해서 Google Analytics을 사용하였습니다.
+
+서비스 시작일 21.01.24 ~ 21.07.08 기간 동안 유입된 사용자 유저의 통계입니다.
+![data_img](./docs/analytics.jpg)
+![data_img](./docs/analytics2.jpg)
+
+사용자의 유입이 매우 일정하지 않음을 볼 수 있습니다.    
+이는 서비스 초기에 유튜브와 커뮤니티로 인해 사용자 유입이 많았으며, 서비스 특성 상 재방문에 대한 수요가 낮기 때문으로 보여집니다.    
+또한 서비스를 지속적으로 마케팅 하지 않았기 때문에, 특정 이벤트가 없는 시기에는 100~800 명 사이의 유저들이 유입되었습니다.
