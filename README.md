@@ -41,11 +41,45 @@ flask, python, html, css, js, mysql
 
 
 2. Maple MBTI Page
-![Rank_page_img](./docs/mbti.jpg)
-![Rank_page_img](./docs/mbti2.jpg)
-![Rank_page_img](./docs/mbti4.jpg)
+![MBTI_page_img1](./docs/mbti.jpg)
+![MBTI_page_img2](./docs/mbti2.jpg)
+![MBTI_page_img4](./docs/mbti4.jpg)
 
 유행했던 MBTI 테스트에서 얻은 아이디어를 바탕으로, 게임에 대한 지식이 전혀 없는 사용자도 자신에 취향에 맞는 직업을 찾을 수 있게 하고 싶었습니다.    
 서비스 타겟이 '메이플스토리에 대한 지식이 없는 유저' 라는 점을 명확히 하고 싶습니다.
 
 ## 개발
+
+
+### Maple Rank Page (크롤링을 이용하여 캐릭터의 인기도를 분석 및 제공)
+1. 크롤링
+크롤링은 메이플스토리 랭크 페이지(https://maplestory.nexon.com/Ranking/World/Total)에서 진행되었습니다.
+크롤링 라이브러리는 BeautifulSoup를 사용했고, Bypass 를 위해 Request에 User-Agent 추가 및 크롤링 시 랜덤 딜레이를 이용하였습니다.
+
+'''
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
+'''
+
+'''
+time.sleep(random.uniform(1, 2))
+'''
+
+기준 레벨이 되는 'FIND_LEVEL-1' 인 레벨을 찾을 때 까지 PAGE_NUM_PLUS 만큼 페이지를 넘겨가며 서치하고,    
+해당 인덱스 + 1 을 FIND_LEVEL의 유저 수로 정의합니다.
+
+
+2. 페이지 구성
+크롤링으로 얻은 데이터를 mysql에 저장하고, 이를 Read 하여 페이지에 보여줍니다.    
+초기에는 캐릭터 변동, 순위 변동 란이 없었지만, 사용자들의 피드백으로 추가하게 되었습니다.
+![Rank_page_img2](./docs/rank2.jpg)
+
+
+### Maple MBTI Page (성향 분석으로 사용자 취향에 맞는 직업 추천)
+참고 라이브러리 : Google Chart API, http://jchamill.github.io/jquery-quiz/
+각 질문의 답변에 대해 직업 별로 점수를 차등하여 지급하고, 모든 질문이 끝난 후 각 직업에 대한 점수를 순위대로 출력합니다.    
+해당 순위를 가독성 높게 제공하기 위해 Google Chart API를 사용하였습니다.
+
+![result_page_img](./docs/mbti_result.jpg)
+
+
+## 사용자 반응 및 통계
