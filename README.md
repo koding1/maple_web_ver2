@@ -1,4 +1,3 @@
-# maple_web
+# Maple_web    
+## 본 서비스는 온라인 게임 '메이플스토리' 의 데이터를 기반으로 제공됩니다.  
 
-다음 할 일 :    
-https://codepen.io/jchamill/pen/garoqg   에서 js 추가
