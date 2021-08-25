@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E39YJ9C3B4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-E39YJ9C3B4');
+        </script>
+        <title>직업 랭킹</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jobrank.css') }}" />
+
+        <script data-ad-client="ca-pub-2405795676926416" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+
+    <body>
+        <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="http://haegu99.pythonanywhere.com/">JOBMAPLE</a>
+                </div>
+                <nav>
+                    <div class="nav-mobile">
+                        <a id="nav-toggle" href="http://haegu99.pythonanywhere.com/"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="https://maple.run.goorm.io/">직업 랭킹</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/mbti">메BTI (직업 성향 검사)</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/update_history">업데이트</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <div class="ad1">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-WFNM1SonV2x5BJo8"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <div class="ad2">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-0eSJGuMpO1xFyqpv"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <div class="ad3">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-bAqpnLBHxueUbMpF"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <div class="ad4">
+            <ins
+                class="kakao_ad_area"
+                style="display: none;"
+                data-ad-unit="DAN-msdushpfoGROblyO"
+                data-ad-width="160"
+                data-ad-height="600"
+            ></ins>
+            <script
+                type="text/javascript"
+                src="//t1.daumcdn.net/kas/static/ba.min.js"
+                async
+            ></script>
+        </div>
+
+        <h1 class="title">직업 인기도 순위</h1>
+
+        <div class="table_div">
+
+            <div class="table_sub_div">
+                    <b class="redate">갱신일 : 21/08/20</b>
+                    <small class="rank_source">http://haegu99.pythonanywhere.com/</small>
+            </div>
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>직업</th>
+                        <th>캐릭터 수</th>
+                        <th>캐릭터 변동</th>
+                        <th>순위 변동</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in rank_data %}
+                    <tr>
+                        <td>{{i['now_rank']}}</td>
+                        <td>{{i['job']}}</td>
+                        <td>{{i['char_cnt']}}</td>
+                        <td>
+                            {% if i['char_cnt']-i['ex_char_cnt'] > 0 %}
+                            <p style="color: red;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% elif 0 > i['char_cnt']-i['ex_char_cnt'] %}
+                            <p style="color: blue;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% else %}
+                            <p>{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if i['ex_rank']-i['now_rank'] > 0 %}
+                            <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
+                            {% elif 0 > i['ex_rank']-i['now_rank'] %}
+                            <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
+                            {% else %}
+                            <p>{{i['ex_rank']-i['now_rank']}}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

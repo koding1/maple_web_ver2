@@ -54,7 +54,7 @@ flask, python, html, css, js, mysql
 ### Maple Rank Page (크롤링을 이용하여 캐릭터의 인기도를 분석 및 제공)
 1. 크롤링     
 
-크롤링은 메이플스토리 랭크 페이지(https://maplestory.nexon.com/Ranking/World/Total)에서 진행되었습니다.
+크롤링은 메이플스토리 랭크 페이지(https://maplestory.nexon.com/Ranking/World/Total)에서 진행되었습니다.    
 크롤링 라이브러리는 BeautifulSoup를 사용했고, Bypass 를 위해 Request에 User-Agent 추가 및 크롤링 시 랜덤 딜레이를 이용하였습니다.
 
 ```
@@ -77,7 +77,8 @@ time.sleep(random.uniform(1, 2))
 
 
 ### Maple MBTI Page (성향 분석으로 사용자 취향에 맞는 직업 추천)
-참고 라이브러리 : Google Chart API, http://jchamill.github.io/jquery-quiz/
+참고 라이브러리 : Google Chart API, http://jchamill.github.io/jquery-quiz/    
+
 각 질문의 답변에 대해 직업 별로 점수를 차등하여 지급하고, 모든 질문이 끝난 후 각 직업에 대한 점수를 순위대로 출력합니다.    
 해당 순위를 가독성 높게 제공하기 위해 Google Chart API를 사용하였습니다.
 
@@ -89,8 +90,8 @@ time.sleep(random.uniform(1, 2))
 사용자에 대한 통계와 정보를 수집하기 위해서 Google Analytics을 사용하였습니다.
 
 서비스 시작일 21.01.24 ~ 21.07.08 기간 동안 유입된 사용자 유저의 통계입니다.
-![data_img](./docs/analytics.jpg)
-![data_img](./docs/analytics2.jpg)
+![data_img](./docs/analytics.JPG)
+![data_img](./docs/analytics2.JPG)
 
 사용자의 유입이 매우 일정하지 않음을 볼 수 있습니다.    
 이는 서비스 초기에 유튜브와 커뮤니티로 인해 사용자 유입이 많았으며, 서비스 특성 상 재방문에 대한 수요가 낮기 때문으로 보여집니다.    

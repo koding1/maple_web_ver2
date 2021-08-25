@@ -82,7 +82,7 @@ def for_crawling_mysql():
     cnt = 0
     re_data = []
     # 페이지 넘버 증가 계수 (상수)
-    PAGE_NUM_PLUS = 8
+    PAGE_NUM_PLUS = 5
     
     for i in job_mysql:
         job_name = i['job']

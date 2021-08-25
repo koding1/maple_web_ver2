@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 패치 1.1 -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E39YJ9C3B4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-E39YJ9C3B4');
+        </script>
+        <title>메BTI</title>
+        <!-- js -->
+
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+        ></script>
+
+        <!-- <script
+            type="text/javascript"
+            src="https://jchamill.github.io/jquery-quiz/jquery.quiz-min.js"
+        ></script> -->
+
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='js/mbti.js') }}"
+        ></script>
+
+        <!-- css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/update_history.css') }}" />
+    </head>
+
+    <body>
+        <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="http://haegu99.pythonanywhere.com/">JOBMAPLE</a>
+                </div>
+                <nav>
+                    <div class="nav-mobile">
+                        <a id="nav-toggle" href="http://haegu99.pythonanywhere.com/"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="https://maple.run.goorm.io/">직업 랭킹</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/mbti">메BTI (직업 성향 검사)</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/update_history">업데이트</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        
+
+    </body>
+</html>

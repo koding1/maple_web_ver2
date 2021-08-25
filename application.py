@@ -7,19 +7,24 @@ application = Flask(__name__)
 
 @application.route("/")
 def main():
-    return render_template("job_rank.html", rank_data=data)
+    return render_template("job_rank_0825.html", rank_data=data)
 
 @application.route("/job_rank")
 def job_rank():
-    return render_template("job_rank.html", rank_data=data)
+    return render_template("job_rank_0825.html", rank_data=data)
 
 @application.route("/mbti")
 def navi():
-    return render_template("mbti.html")
+    return render_template("mbti_0825.html")
 
 @application.route("/chart")
 def chart():
     return render_template("chart.html")
+
+@application.route("/update_history")
+def update_history():
+    return render_template("update_history.html")
+
 if __name__ == "__main__":
     data = grap_data()
         
