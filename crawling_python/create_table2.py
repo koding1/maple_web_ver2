@@ -9,8 +9,8 @@ db = pymysql.connect(host='localhost',
 
 cursor = db.cursor()
 
-sql = """
-    CREATE TABLE rank_table(
+sql_str = """
+    CREATE TABLE 210827_table(
     job VARCHAR(255) PRIMARY KEY,
     page INT(10),
     char_cnt INT(10),
@@ -19,11 +19,11 @@ sql = """
     )
     """
 
+sql = sql_str
+
 # SQL query 실행
 cursor.execute(sql)
-
 cursor.execute("show tables")
 
 db.commit()
-
 db.close()

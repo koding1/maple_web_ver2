@@ -3,6 +3,9 @@ mysqldump -u root -p --default-character-set=utf8 rank_db > 0807.sql
 
 # pythonanywhere 데이터 올리기 jh9
 mysql -h haegu99.mysql.pythonanywhere-services.com -u haegu99 -p 'haegu99$rank_db' < '0807.sql'
+# 구름에 올리기 (테이블 생성까지 되는 것 같네용)
+mysql -h localhost -u root -p --default-character-set=utf8 test_db < 210807.sql
+
 
 # pythonanywhere mysql 접속
 mysql -u haegu99 -h haegu99.mysql.pythonanywhere-services.com -p 'haegu99$rank_db'

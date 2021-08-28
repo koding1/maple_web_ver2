@@ -1,17 +1,17 @@
 from flask import Flask, render_template
 from flask_scss import Scss
 import sys
-from grap_mysql import grap_data
+from grap_mysql2 import grap_data
 
 application = Flask(__name__)
 
 @application.route("/")
 def main():
-    return render_template("job_rank_0825.html", rank_data=data)
+    return render_template("job_rank_0825.html", rank_data=data['210827_table'])
 
 @application.route("/job_rank")
 def job_rank():
-    return render_template("job_rank_0825.html", rank_data=data)
+    return render_template("job_rank_0825.html", rank_data=data['210827_table'])
 
 @application.route("/mbti")
 def navi():
@@ -20,6 +20,10 @@ def navi():
 @application.route("/chart")
 def chart():
     return render_template("chart.html")
+
+@application.route("/chart2")
+def chart2():
+    return render_template("chart2.html", rank_data=data['210827_table'])
 
 @application.route("/update_history")
 def update_history():
