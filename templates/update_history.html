@@ -34,6 +34,42 @@
 
         <!-- css -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}" />
+        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var chart_data = {{rank_data|tojson}};
+                var chart_table = [["직업", "인구 수", { role: "style" } ]];
+                for (var step = 0; step < 44; step++) {
+                    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+                    chart_table.push([chart_data[step]['job'],  chart_data[step]['char_cnt'], randomColor]);
+                }
+                console.log(chart_table)
+                var data = google.visualization.arrayToDataTable(chart_table);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                           { calc: "stringify",
+                             sourceColumn: 1,
+                             type: "string",
+                             role: "annotation" },
+                           2]);
+
+                var options = {
+                title: "jobmaple.cf",
+                chartArea:{left:"10%",top:"2%",width:"100%",height:"100%"},
+                height: 1500,
+                width: 550,
+                bar: {groupWidth: "80%"},
+                legend: { position: "none" },
+                backgroundColor: '#11a8ab',
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            chart.draw(view, options);
+            }
+        </script>
     </head>
 
     <body>
@@ -101,23 +137,10 @@
                     </ul>
                 </div>
                 <div class="donut-chart-block block"> <!-- DONUT CHART BLOCK (LEFT-CONTAINER) -->
-                    <h2 class="titular">통계</h2>
+                    <h2 class="titular">직업 별 260 캐릭터 인구 수</h2>
                     <div class="line-chart">
                       <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
-                        <div class='grafico'>
-                           <ul class='eje-y'>
-                             <li data-ejeY='30'></li>
-                             <li data-ejeY='20'></li>
-                             <li data-ejeY='10'></li>
-                             <li data-ejeY='0'></li>
-                           </ul>
-                           <ul class='eje-x'>
-                             <li>210807</li>
-                             <li>210828</li>
-                           </ul>
-                             <span data-valor='25'>
-                               <span data-valor='10'></span></span>
-                        </div>
+                        <div id="barchart_values" style="width: 100%; height: 100%; overflow:auto;"></div>
                         <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                     </div>
 
@@ -191,7 +214,7 @@
             <div class="middle-container container">
                 <div class="profile block"> <!-- PROFILE (MIDDLE-CONTAINER) -->
                     <div class="profile-picture big-profile-picture clear">
-                        <img width="150px" alt="Anne Hathaway picture" src="https://w.namu.la/s/43711be34e3e314d03f78bfbcbad0c9257093af151c94293ed105a8f9259ccfef972e8d2fb1ee28f48d3e8a6e9a293024ea52ff32908da27e8538de485232fe06795b7c41e69ef587f0cb46d77e00ba104048ed53416cf1af9aaabed852ad31425f299b4eb5e27fa608112b87559dc45" >
+                        <img width="150px" alt="Anne Hathaway picture" src="https://w.namu.la/s/648dde66dc56a59e3173458cd4e7c5259e94a39f7805c0c7f5275d894735b567ec90721100b0ba6d312bfac760ddbc7d094ad290cad15d3d794d2226d0dec941aef1993382dd4724a70ba102b870812b47b5ef60cdf50878b96a363a099abd335b81b5921c67cce672f3cc042d4ddad3" >
                     </div>
                     <h1 class="user-name">호영</h1>
                     <div class="profile-description">

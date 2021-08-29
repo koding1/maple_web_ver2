@@ -23,15 +23,16 @@ def chart():
 
 @application.route("/chart2")
 def chart2():
-    return render_template("chart2.html", rank_data=data['210827_table'])
+    return render_template("chart2.html", rank_data=data)
 
 @application.route("/update_history")
 def update_history():
-    return render_template("update_history.html")
+    return render_template("update_history.html", rank_data=data['210827_table'])
 
 if __name__ == "__main__":
     data = grap_data()
-        
+    for i in data:
+        print(i)
     application.run(host='0.0.0.0', port=5000)
 
 # https://tutorial-extensions.djangogirls.org/ko/domain
