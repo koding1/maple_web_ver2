@@ -23,16 +23,24 @@ def chart():
 
 @application.route("/chart2")
 def chart2():
-    return render_template("chart2.html", rank_data=data)
+    return render_template("chart2.html", rank_data=data, job_name = job_name, len_ = len(job_name), div_id = div_id)
 
 @application.route("/update_history")
 def update_history():
-    return render_template("update_history.html", rank_data=data['210827_table'])
+    return render_template("update_history.html", rank_data=data)
+
+
 
 if __name__ == "__main__":
     data = grap_data()
-    for i in data:
-        print(i)
+    job_name = []
+    div_id = []
+    cnt = 0
+    for i in data['210310_table']:
+        job_name.append(i['job'])
+        div_id.append("job"+str(cnt))
+        cnt += 1
+    print(div_id)
     application.run(host='0.0.0.0', port=5000)
 
 # https://tutorial-extensions.djangogirls.org/ko/domain

@@ -1,22 +1,36 @@
 <html>
     <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+        ></script>
         <script type="text/javascript">
           google.charts.load('current', {'packages':['corechart']});
           google.charts.setOnLoadCallback(drawChart);
 
           function drawChart() {
             var date_data = {{rank_data|tojson}};
-
-            var chart_table = [['직업', '일자 별 캐릭터 수']];
+            var check = 0
+            var chart_table = [['일자']];
+            var job_index_dictionay = {}
+            // key example) '210807_table'
             for (var key in date_data) {
+                    var tmp = new Array(45);
+                    tmp[0] = (date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6))
+                    // chart_data is date_data['210807_table'] -> 해당 날의 직업 별 데이터
                     var chart_data = date_data[key];
                     for (var step = 0; step < 44; step++) {
-                        if (chart_data[step]['job'] === '호영') {
-                             date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6)
-                             chart_table.push([date, chart_data[step]['char_cnt']]);
+                        if (check == 0){
+                            chart_table[0].push(chart_data[step]['job'])
+                            // + 1 하는 이유는 0번 인덱스에 날짜가 들어 있기 때문
+                            job_index_dictionay[chart_data[step]['job']] = step + 1
                         }
+                        tmp[job_index_dictionay[chart_data[step]['job']]] = chart_data[step]['char_cnt']
                     }
+                    check = 1
+                    chart_table.push(tmp)
+                    console.log(tmp)
             }
             
             console.log(chart_table)
@@ -30,10 +44,53 @@
               height: "100%",
               width: "100%",
             };
-
+            
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                { calc: "stringify",
+                    id: "듀블",
+                    type: "string",
+                    role: "annotation" },2,
+                { calc: "stringify",
+                    id: "아델",
+                    type: "string",
+                    role: "annotation" },3,
+                { calc: "stringify",
+                    id: "비숍",
+                    type: "string",
+                    role: "annotation" }]);
+            
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
             chart.draw(data, options);
+            var job_name = []
+            for (var key in job_index_dictionay){
+                job_name.push(key)
+            }
+            
+            $(document).ready(function () {
+                // do stuff on "ready" event
+                $(".checkbox").change(function() {
+
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+                    
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+
+                    chart.draw(view, options);
+
+                });
+            });
           }
         </script>
         <!-- <script type="text/javascript">
@@ -86,6 +143,23 @@
                 </div>
         </header>
         <div id="curve_chart" style="width: 500px; height: 500px; overflow:auto;"></div>
+        <div style="display: flex;">
+            {% for i in range(0, len_) %}
+                <input type="checkbox" class="checkbox"  id={{div_id[i]}} checked> {{job_name[i]}}<br>
+            {% endfor %}
+            
+            
+            <!-- <input type="checkbox" class="checkbox"  id="job1" checked> 불독<br>
+            <input type="checkbox" class="checkbox"  id="job2" checked> 비숍<br>
+            <input type="checkbox" class="checkbox"  id="job3" checked> 나로<br>
+            <input type="checkbox" class="checkbox"  id="job4" checked> 아델<br>
+            <input type="checkbox" class="checkbox"  id="job5" checked> 섀도어<br>
+            <input type="checkbox" class="checkbox"  id="job6" checked> 은월<br>
+            <input type="checkbox" class="checkbox"  id="job7" checked> 패파<br>
+            <input type="checkbox" class="checkbox"  id="job8" checked> 엔버<br>
+            <input type="checkbox" class="checkbox"  id="job9" checked> 아크<br>
+            <input type="checkbox" class="checkbox"  id="job10" checked> 썬콜<br> -->
+        </div>
         <!-- <div id="barchart_values" style="width: 500px; height: 500px; overflow:auto;"></div> -->
     </body>
 </html>

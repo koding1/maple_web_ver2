@@ -40,7 +40,7 @@
             google.charts.load("current", {packages:["corechart"]});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
-                var chart_data = {{rank_data|tojson}};
+                var chart_data = {{rank_data['210827_table']|tojson}};
                 var chart_table = [["직업", "인구 수", { role: "style" } ]];
                 for (var step = 0; step < 44; step++) {
                     var randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -59,7 +59,7 @@
 
                 var options = {
                 title: "jobmaple.cf",
-                chartArea:{left:"10%",top:"2%",width:"100%",height:"100%"},
+                chartArea:{left:40,top:30,width:"100%",height:"100%"},
                 height: 1500,
                 width: 550,
                 bar: {groupWidth: "80%"},
@@ -69,6 +69,41 @@
             var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
             chart.draw(view, options);
             }
+        </script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+
+          function drawChart() {
+            var date_data = {{rank_data|tojson}};
+
+            var chart_table = [['직업', '일자 별 캐릭터 수']];
+            for (var key in date_data) {
+                    var chart_data = date_data[key];
+                    for (var step = 0; step < 44; step++) {
+                        if (chart_data[step]['job'] === '호영') {
+                             date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6)
+                             chart_table.push([date, chart_data[step]['char_cnt']]);
+                        }
+                    }
+            }
+            
+            console.log(chart_table)
+            var data = google.visualization.arrayToDataTable(chart_table);
+
+            var options = {
+              // title: '호영',
+              explorer: {axis: 'horizontal'},
+              chartArea:{left:40,right:30,top:20,width:"100%",height:"80%"},
+              legend: { position: 'bottom' },
+              height: "100%",
+              width: "100%",
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+          }
         </script>
     </head>
 
@@ -137,59 +172,20 @@
                     </ul>
                 </div>
                 <div class="donut-chart-block block"> <!-- DONUT CHART BLOCK (LEFT-CONTAINER) -->
-                    <h2 class="titular">직업 별 260 캐릭터 인구 수</h2>
+                    <h2 class="titular">직업 별 260 이상 인구 수</h2>
                     <div class="line-chart">
                       <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                         <div id="barchart_values" style="width: 100%; height: 100%; overflow:auto;"></div>
                         <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                     </div>
-
                 </div>
                 <div class="line-chart-block block clear"> <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
+                    <h2 class="titular">호영 260 이상 인구 수</h2>
                     <div class="line-chart">
                       <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
-                        <div class='grafico'>
-                           <ul class='eje-y'>
-                             <li data-ejeY='30'></li>
-                             <li data-ejeY='20'></li>
-                             <li data-ejeY='10'></li>
-                             <li data-ejeY='0'></li>
-                           </ul>
-                           <ul class='eje-x'>
-                             <li>Apr</li>
-                             <li>May</li>
-                             <li>Jun</li>
-                           </ul>
-                             <span data-valor='25'>
-                               <span data-valor='8'>
-                                 <span data-valor='13'>
-                                   <span data-valor='5'>   
-                                     <span data-valor='23'>   
-                                     <span data-valor='12'>
-                                         <span data-valor='15'>
-                                         </span></span></span></span></span></span></span>
-                        </div>
+                        <div id="curve_chart" style="width: 100%; height: 100%; overflow:auto;"></div>
                         <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                     </div>
-                    <ul class="time-lenght horizontal-list">
-                        <li><a class="time-lenght-btn" href="#14">Week</a></li>
-                        <li><a class="time-lenght-btn" href="#15">Month</a></li>
-                        <li><a class="time-lenght-btn" href="#16">Year</a></li>
-                    </ul>
-                    <ul class="month-data clear">
-                        <li>
-                            <p>APR<span class="scnd-font-color"> 2013</span></p>
-                            <p><span class="entypo-plus increment"> </span>21<sup>%</sup></p>
-                        </li>
-                        <li>
-                            <p>MAY<span class="scnd-font-color"> 2013</span></p>
-                            <p><span class="entypo-plus increment"> </span>48<sup>%</sup></p>
-                        </li>
-                        <li>
-                            <p>JUN<span class="scnd-font-color"> 2013</span></p>
-                            <p><span class="entypo-plus increment"> </span>35<sup>%</sup></p>
-                        </li>
-                    </ul>
                 </div>
                 <div class="media block"> <!-- MEDIA (LEFT-CONTAINER) -->
                     <div id="media-display">
