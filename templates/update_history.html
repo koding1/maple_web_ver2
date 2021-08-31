@@ -38,8 +38,8 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
+            google.charts.setOnLoadCallback(drawChart1);
+            function drawChart1() {
                 var chart_data = {{rank_data['210827_table']|tojson}};
                 var chart_table = [["직업", "인구 수", { role: "style" } ]];
                 for (var step = 0; step < 44; step++) {
@@ -73,7 +73,7 @@
         <script type="text/javascript">
           google.charts.load('current', {'packages':['corechart']});
           google.charts.setOnLoadCallback(drawChart);
-
+        
           function drawChart() {
             var date_data = {{rank_data|tojson}};
 
@@ -101,9 +101,122 @@
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
+            console.log(111111111111111111111111111111)
             chart.draw(data, options);
           }
+        </script>
+        <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart2);
+        
+        function errorHandler(errorMessage) {
+            //curisosity, check out the error in the console
+            console.log(errorMessage);
+
+            //simply remove the error, the user never see it
+            google.visualization.errors.removeError(errorMessage.id);
+        }
+        function drawChart2() {
+            var date_data = {{rank_data|tojson}};
+            var check = 0
+            var chart_table = [['일자']];
+            
+            var job_index_dictionay = {}
+            // key example) '210807_table'
+            for (var key in date_data) {
+                    var tmp = new Array(45);
+                    tmp[0] = (date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6))
+                    // chart_data is date_data['210807_table'] -> 해당 날의 직업 별 데이터
+                    var chart_data = date_data[key];
+                    for (var step = 0; step < 44; step++) {
+                        if (check == 0){
+                            chart_table[0].push(chart_data[step]['job'])
+                            // + 1 하는 이유는 0번 인덱스에 날짜가 들어 있기 때문
+                            job_index_dictionay[chart_data[step]['job']] = step + 1
+                        }
+                        tmp[job_index_dictionay[chart_data[step]['job']]] = chart_data[step]['char_cnt']
+                    }
+                    check = 1
+                    chart_table.push(tmp)
+                    console.log(tmp)
+            }
+
+            console.log(chart_table)
+            var data = google.visualization.arrayToDataTable(chart_table);
+
+            var options = {
+              title: '',
+              explorer: {axis: 'horizontal'},
+              chartArea:{left:40,top:30,width:"100%",height:"80%"},
+              legend: { position: 'bottom' },
+              height: "100%",
+              width: "100%",
+            };
+
+            var view = new google.visualization.DataView(data);
+
+
+            var chart = new google.visualization.LineChart(document.getElementById('char_chart'));
+            
+            //attach the error handler here, before draw()
+            google.visualization.events.addListener(chart, 'error', errorHandler); 
+            
+            chart.draw(data, options);
+            var job_name = []
+            for (var key in job_index_dictionay){
+                job_name.push(key)
+            }
+
+            $(document).ready(function () {
+                $(".checkAll").change(function() {
+                    console.log('abasd')
+                    if ($("#checkAll").is(':checked')) {
+                        $("input[type=checkbox]").prop("checked", true);
+                    } else {
+                        $("input[type=checkbox]").prop("checked", false);
+                        $("input[id='job0']").prop("checked", true);
+                    }
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+                    
+                    chart.draw(view, options);
+                });
+                
+                // do stuff on "ready" event
+                $(".checkbox").change(function() {
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+                    
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+                    
+                    chart.draw(view, options);
+
+                });
+            });
+            
+        }
         </script>
     </head>
 
@@ -222,50 +335,13 @@
                         <li><a class="likes" href="#42"><p><span class="icon fontawesome-heart-empty scnd-font-color"></span>49</p></a></li>
                     </ul>
                 </div>
-                <div class="weather block clear"> <!-- WEATHER (MIDDLE-CONTAINER) -->
-                    <h2 class="titular"><span class="icon entypo-location"></span><strong>CLUJ-NAPOCA</strong>/RO</h2>
-                    <div class="current-day">
-                        <p class="current-day-date">FRI 29/06</p>
-                        <p class="current-day-temperature">24º<span class="icon-cloudy"></span></p>
+                <div class="line-chart-block block clear"> <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
+                    <h2 class="titular">일자 별 인구 수</h2>
+                    <div class="line-chart">
+                      <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
+                        <div id="char_chart" style="width: 100%; height: 100%; overflow:auto;"></div>
+                        <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                     </div>
-                    <ul class="next-days">
-                        <li>
-                            <a href="#43">
-                                <p class="next-days-date"><span class="day">SAT</span> <span class="scnd-font-color">29/06</span></p>
-                                <p class="next-days-temperature">25º<span class="icon icon-cloudy scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#44">
-                                <p class="next-days-date"><span class="day">SUN</span> <span class="scnd-font-color">30/06</span></p>
-                                <p class="next-days-temperature">22º<span class="icon icon-cloudy2 scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#45">
-                                <p class="next-days-date"><span class="day">MON</span> <span class="scnd-font-color">01/07</span></p>
-                                <p class="next-days-temperature">24º<span class="icon icon-cloudy2 scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#46">
-                                <p class="next-days-date"><span class="day">TUE</span> <span class="scnd-font-color">02/07</span></p>
-                                <p class="next-days-temperature">26º<span class="icon icon-cloudy scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <p class="next-days-date"><span class="day">WED</span> <span class="scnd-font-color">03/07</span></p>
-                                <p class="next-days-temperature">27º<span class="icon icon-sun scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <p class="next-days-date"><span class="day">THU</span> <span class="scnd-font-color">04/07</span></p>
-                                <p class="next-days-temperature">29º<span class="icon icon-sun scnd-font-color"></span></p>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <div class="tweets block"> <!-- TWEETS (MIDDLE-CONTAINER) -->
                     <h2 class="titular"><span class="icon zocial-twitter"></span>LATEST TWEETS</h2>

@@ -6,13 +6,21 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
         ></script>
         <script type="text/javascript">
-          google.charts.load('current', {'packages':['corechart']});
-          google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart2);
+        
+        function errorHandler(errorMessage) {
+            //curisosity, check out the error in the console
+            console.log(errorMessage);
 
-          function drawChart() {
+            //simply remove the error, the user never see it
+            google.visualization.errors.removeError(errorMessage.id);
+        }
+        function drawChart2() {
             var date_data = {{rank_data|tojson}};
             var check = 0
             var chart_table = [['일자']];
+            
             var job_index_dictionay = {}
             // key example) '210807_table'
             for (var key in date_data) {
@@ -32,46 +40,62 @@
                     chart_table.push(tmp)
                     console.log(tmp)
             }
-            
+
             console.log(chart_table)
             var data = google.visualization.arrayToDataTable(chart_table);
 
             var options = {
-              title: '호영',
+              title: '',
               explorer: {axis: 'horizontal'},
               chartArea:{left:70,top:"7%",width:"100%",height:"80%"},
               legend: { position: 'bottom' },
               height: "100%",
               width: "100%",
             };
-            
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                { calc: "stringify",
-                    id: "듀블",
-                    type: "string",
-                    role: "annotation" },2,
-                { calc: "stringify",
-                    id: "아델",
-                    type: "string",
-                    role: "annotation" },3,
-                { calc: "stringify",
-                    id: "비숍",
-                    type: "string",
-                    role: "annotation" }]);
-            
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
+            var view = new google.visualization.DataView(data);
+
+
+            var chart = new google.visualization.LineChart(document.getElementById('char_chart'));
+            
+            //attach the error handler here, before draw()
+            google.visualization.events.addListener(chart, 'error', errorHandler); 
+            
             chart.draw(data, options);
             var job_name = []
             for (var key in job_index_dictionay){
                 job_name.push(key)
             }
-            
+
             $(document).ready(function () {
+                $(".checkAll").change(function() {
+                    console.log('abasd')
+                    if ($("#checkAll").is(':checked')) {
+                        $("input[type=checkbox]").prop("checked", true);
+                    } else {
+                        $("input[type=checkbox]").prop("checked", false);
+                        $("input[id='job0']").prop("checked", true);
+                    }
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+                    
+                    chart.draw(view, options);
+                });
+                
                 // do stuff on "ready" event
                 $(".checkbox").change(function() {
-
                     view = new google.visualization.DataView(data);
                     var tes =[0];
                     
@@ -86,12 +110,15 @@
                     }
                     
                     view.setColumns(tes);
-
+                    
                     chart.draw(view, options);
 
                 });
             });
-          }
+            
+        }
+          
+        
         </script>
         <!-- <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
@@ -142,10 +169,11 @@
                     <input type="text" placeholder="직업 검색" class="email text-input">
                 </div>
         </header>
-        <div id="curve_chart" style="width: 500px; height: 500px; overflow:auto;"></div>
+        <div id="char_chart" style="width: 500px; height: 500px; overflow:auto;"></div>
         <div style="display: flex;">
+            <input type='checkbox' class="checkAll" id='checkAll' value='selectall'/> <b>Select All</b>
             {% for i in range(0, len_) %}
-                <input type="checkbox" class="checkbox"  id={{div_id[i]}} checked> {{job_name[i]}}<br>
+                <input type="checkbox" name='job' class="checkbox"  id={{div_id[i]}}> {{job_name[i]}}<br>
             {% endfor %}
             
             
@@ -163,3 +191,4 @@
         <!-- <div id="barchart_values" style="width: 500px; height: 500px; overflow:auto;"></div> -->
     </body>
 </html>
+

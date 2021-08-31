@@ -1,0 +1,305 @@
+<!-- https://codepen.io/jlalovi/pen/bIyAr -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 패치 1.1 -->
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-E39YJ9C3B4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-E39YJ9C3B4');
+        </script>
+        <title>메BTI</title>
+        <!-- js -->
+
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+        ></script>
+
+        <!-- <script
+            type="text/javascript"
+            src="https://jchamill.github.io/jquery-quiz/jquery.quiz-min.js"
+        ></script> -->
+
+        <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='js/mbti.js') }}"
+        ></script>
+
+        <!-- css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/test.css') }}" />
+        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load("current", {packages:["corechart"]});
+            google.charts.setOnLoadCallback(drawChart1);
+            // bar chart
+            function drawChart1() {
+                var chart_data = {{rank_data['210827_table']|tojson}};
+                var chart_table = [["직업", "인구 수", { role: "style" } ]];
+                for (var step = 0; step < 44; step++) {
+                    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+                    chart_table.push([chart_data[step]['job'],  chart_data[step]['char_cnt'], randomColor]);
+                }
+                console.log(chart_table)
+                var data = google.visualization.arrayToDataTable(chart_table);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([0, 1,
+                           { calc: "stringify",
+                             sourceColumn: 1,
+                             type: "string",
+                             role: "annotation" },
+                           2]);
+
+                var options = {
+                title: "jobmaple.cf",
+                chartArea:{left:120,top:50,width:"100%",height:"100%"},
+                height: 1500,
+                width: 1500,
+                bar: {groupWidth: "80%"},
+                legend: { position: "none" },
+                backgroundColor: '#11a8ab',
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            chart.draw(view, options);
+            }
+        </script>
+        <script type="text/javascript">
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+        
+          function drawChart() {
+            var date_data = {{rank_data|tojson}};
+
+            var chart_table = [['직업', '일자 별 캐릭터 수']];
+            for (var key in date_data) {
+                    var chart_data = date_data[key];
+                    for (var step = 0; step < 44; step++) {
+                        if (chart_data[step]['job'] === '호영') {
+                             date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6)
+                             chart_table.push([date, chart_data[step]['char_cnt']]);
+                        }
+                    }
+            }
+            
+            console.log(chart_table)
+            var data = google.visualization.arrayToDataTable(chart_table);
+
+            var options = {
+              // title: '호영',
+              explorer: {axis: 'horizontal'},
+              chartArea:{left:40,right:30,top:20,width:"100%",height:"80%"},
+              legend: { position: 'bottom' },
+              height: "100%",
+              width: "100%",
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            console.log(111111111111111111111111111111)
+            chart.draw(data, options);
+          }
+        </script>
+        <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart2);
+        
+        function errorHandler(errorMessage) {
+            //curisosity, check out the error in the console
+            console.log(errorMessage);
+
+            //simply remove the error, the user never see it
+            google.visualization.errors.removeError(errorMessage.id);
+        }
+        function drawChart2() {
+            var date_data = {{rank_data|tojson}};
+            var check = 0
+            var chart_table = [['일자']];
+            
+            var job_index_dictionay = {}
+            // key example) '210807_table'
+            for (var key in date_data) {
+                    var tmp = new Array(45);
+                    tmp[0] = (date = key.slice(0,2) +'-' + key.slice(2,4) +'-' + key.slice(4,6))
+                    // chart_data is date_data['210807_table'] -> 해당 날의 직업 별 데이터
+                    var chart_data = date_data[key];
+                    for (var step = 0; step < 44; step++) {
+                        if (check == 0){
+                            chart_table[0].push(chart_data[step]['job'])
+                            // + 1 하는 이유는 0번 인덱스에 날짜가 들어 있기 때문
+                            job_index_dictionay[chart_data[step]['job']] = step + 1
+                        }
+                        tmp[job_index_dictionay[chart_data[step]['job']]] = chart_data[step]['char_cnt']
+                    }
+                    check = 1
+                    chart_table.push(tmp)
+                    console.log(tmp)
+            }
+
+            console.log(chart_table)
+            var data = google.visualization.arrayToDataTable(chart_table);
+
+            var options = {
+              title: '',
+              explorer: {axis: 'horizontal'},
+              chartArea:{left:40,top:30,width:"100%",height:"80%"},
+              legend: { position: 'bottom' },
+              height: "100%",
+              width: "100%",
+            };
+
+            var view = new google.visualization.DataView(data);
+
+
+            var chart = new google.visualization.LineChart(document.getElementById('char_chart'));
+            
+            //attach the error handler here, before draw()
+            google.visualization.events.addListener(chart, 'error', errorHandler); 
+            
+            chart.draw(data, options);
+            var job_name = []
+            for (var key in job_index_dictionay){
+                job_name.push(key)
+            }
+
+            $(document).ready(function () {
+                $(".checkAll").change(function() {
+                    console.log('abasd')
+                    if ($("#checkAll").is(':checked')) {
+                        $("input[type=checkbox]").prop("checked", true);
+                    } else {
+                        $("input[type=checkbox]").prop("checked", false);
+                        $("input[id='job0']").prop("checked", true);
+                    }
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+                    
+                    chart.draw(view, options);
+                });
+                
+                // do stuff on "ready" event
+                $(".checkbox").change(function() {
+                    view = new google.visualization.DataView(data);
+                    var tes =[0];
+                    
+                    for (var i = 0 ; i < 44; i++){
+                        if($("#job"+String(i)).is(':checked')) {
+                            tes.push(i+1,
+                                { calc: "stringify",
+                                    id: job_name[i],
+                                    type: "string",
+                                    role: "annotation" });                    
+                        }
+                    }
+                    
+                    view.setColumns(tes);
+                    
+                    chart.draw(view, options);
+
+                });
+            });
+            
+        }
+        </script>
+    </head>
+
+    <body>
+        <!-- <section class="navigation">
+            <div class="nav-container">
+                <div class="brand">
+                    <a href="http://haegu99.pythonanywhere.com/">JOBMAPLE</a>
+                </div>
+                <nav>
+                    <div class="nav-mobile">
+                        <a id="nav-toggle" href="http://haegu99.pythonanywhere.com/"><span></span></a>
+                    </div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="https://maple.run.goorm.io/">직업 랭킹</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/mbti">메BTI (직업 성향 검사)</a>
+                        </li>
+                        <li>
+                            <a href="https://maple.run.goorm.io/update_history">업데이트</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section> -->
+        <h1 style = "text-align: center; margin: 1em auto; font-size: 30px;">JOBMAPLE.CF</h1>
+        <div class="main-container">
+            
+            <!-- HEADER -->
+            <header class="block">
+                
+                <ul class="header-menu horizontal-list">
+                    <li>
+                        <a class="header-menu-tab" href="https://maple.run.goorm.io/"><span class="icon fontawesome-align-left scnd-font-color"></span>직업 랭킹</a>
+                    </li>
+                    <li>
+                        <a class="header-menu-tab" href="https://maple.run.goorm.io/mbti"><span class="icon fontawesome-check scnd-font-color"></span>메BTI</a>
+                    </li>
+                </ul>
+            </header>
+
+            <!-- LEFT-CONTAINER -->
+            <div class="left-container container">
+
+                <div class="donut-chart-block block"> <!-- DONUT CHART BLOCK (LEFT-CONTAINER) -->
+                    <h2 class="titular">직업 별 260 이상 인구 수</h2>
+                    <div class="line-chart">
+                      <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
+                        <div id="barchart_values" style="width: 100%; height: 100%; overflow:auto;"></div>
+                        <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- MIDDLE-CONTAINER -->
+            <div class="middle-container container">
+                <div class="line-chart-block block clear"> <!-- LINE CHART BLOCK (LEFT-CONTAINER) -->
+                    <h2 class="titular">일자 별 인구 수</h2>
+                    <div class="line-chart">
+                      <!-- LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
+                        <div id="char_chart" style="width: 100%; height: 100%; overflow:auto;"></div>
+                        <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
+                    </div>
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; background: #394264; border-radius: 5px;">
+                        
+                        {% for i in range(0, len_) %}
+                            <div style="width: 120px;">
+                                <input type="checkbox" name='job' class="checkbox"  id={{div_id[i]}}> {{job_name[i]}}<br>
+                            </div>
+                        {% endfor %}
+    
+                        <div style="width: 200px;"><input type='checkbox' class="checkAll" id='checkAll' value='selectall'/> <b>전체 선택 / 해제</b></div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div> <!-- end main-container -->
+
+
+    </body>
+</html>

@@ -29,6 +29,10 @@ def chart2():
 def update_history():
     return render_template("update_history.html", rank_data=data)
 
+@application.route("/s")
+def statistics():
+    return render_template("statistics.html", rank_data=data, job_name = job_name, len_ = len(job_name), div_id = div_id)
+
 
 
 if __name__ == "__main__":

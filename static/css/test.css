@@ -240,7 +240,7 @@ h1, h2, p, a, span{
 	font-family: 'Ubuntu', sans-serif;
 	width: 950px;
 	height: 1725px;
-	margin: 6em auto;
+	margin: 1em auto;
 }	
 	/*********************************************** HEADER ***********************************************/
 	header {
@@ -313,8 +313,8 @@ h1, h2, p, a, span{
 			}
 	/** CONTAINERS **/
 	.container {
-		float: left;
-		width: 300px;
+		/* float: left; */
+		/* width: 300px; */
 	}
 		.block {
 			margin-bottom: 25px;
@@ -717,7 +717,7 @@ h1, h2, p, a, span{
 						}
 		/************************************************** MIDDLE CONTAINER **********************************/
 		.middle-container {
-			margin: 0 25px;			
+			/* margin: 0 25px;			 */
 		}
 			.profile {
                 padding-top: 30px; /* 0827 */
