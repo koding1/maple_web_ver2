@@ -1,11 +1,12 @@
 # 구름 데이터 백업 95
-mysqldump -u root -p --default-character-set=utf8 rank_db > 0807.sql
+mysqldump -u root -p --default-character-set=utf8 rank_db > 0901.sql
 
 # pythonanywhere 데이터 올리기 jh9
-mysql -h haegu99.mysql.pythonanywhere-services.com -u haegu99 -p 'haegu99$rank_db' < '0807.sql'
+mysql -h haegu99.mysql.pythonanywhere-services.com -u haegu99 -p 'haegu99$rank_db' < '0901.sql'
 # 구름에 올리기 (테이블 생성까지 되는 것 같네용)
-mysql -h localhost -u root -p --default-character-set=utf8 test_db < 210702.sql
-
+mysql -h localhost -u root -p --default-character-set=utf8 test_db < 210901.sql
+-> 체크 리스트 1. job_rank page 데이터 날짜 수정 (application.py)
+-> 2. statistics 데이터 수정 (statistics.html)
 
 # pythonanywhere mysql 접속
 mysql -u haegu99 -h haegu99.mysql.pythonanywhere-services.com -p 'haegu99$rank_db'

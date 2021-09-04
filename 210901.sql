@@ -1,0 +1,55 @@
+-- MySQL dump 10.13  Distrib 5.7.32, for Linux (x86_64)
+--
+-- Host: localhost    Database: test_db
+-- ------------------------------------------------------
+-- Server version	5.7.32-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `210901_table`
+--
+
+DROP TABLE IF EXISTS `210901_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `210901_table` (
+  `job` varchar(255) NOT NULL,
+  `page` int(10) DEFAULT NULL,
+  `char_cnt` int(10) DEFAULT NULL,
+  `now_rank` int(10) DEFAULT NULL,
+  `ex_rank` int(10) DEFAULT NULL,
+  `ex_char_cnt` int(10) DEFAULT NULL,
+  PRIMARY KEY (`job`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `210901_table`
+--
+
+LOCK TABLES `210901_table` WRITE;
+/*!40000 ALTER TABLE `210901_table` DISABLE KEYS */;
+INSERT INTO `210901_table` VALUES ('나로',139,1385,4,4,1326),('나워',18,174,35,35,169),('다크나이트',36,359,26,26,343),('데벤',42,418,21,21,398),('데슬',31,309,31,31,301),('듀블',228,2275,1,1,2202),('루미',39,383,23,22,375),('메르',44,430,19,19,412),('메카',21,205,34,34,202),('미하일',8,71,44,44,66),('바이퍼',43,420,20,20,407),('배메',14,130,38,37,128),('보마',24,237,33,33,229),('불독',114,1138,5,5,1136),('블래',12,119,41,41,112),('비숍',149,1485,3,3,1395),('섀도어',95,942,8,8,911),('소마',37,369,24,24,351),('스커',13,126,40,40,123),('신궁',14,130,39,39,123),('썬콜',112,1110,6,6,1043),('아델',184,1832,2,2,1680),('아란',52,519,17,17,498),('아크',93,923,9,9,879),('에반',50,495,18,18,484),('엔버',89,886,10,10,853),('와헌',16,155,36,36,150),('윈브',67,664,16,16,629),('은월',88,874,11,11,852),('일리움',10,93,42,42,89),('제논',35,345,28,28,337),('제로',69,684,15,15,654),('카데나',32,310,30,30,302),('카이저',30,293,32,32,275),('카인',8,74,43,43,68),('캐슈',69,686,14,13,669),('캡틴',14,134,37,38,125),('키네',37,361,25,25,345),('팔라딘',36,358,27,27,339),('패파',106,1057,7,7,1014),('팬텀',75,743,12,12,717),('플위',35,340,29,29,329),('호영',40,392,22,23,361),('히어로',70,690,13,14,664);
+/*!40000 ALTER TABLE `210901_table` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-09-04 12:52:21

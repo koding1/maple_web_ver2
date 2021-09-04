@@ -1,3 +1,130 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700);
+@import url(https://weloveiconfonts.com/api/?family=entypo|fontawesome|zocial);
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+/* zocial */
+[class*="zocial-"]:before {
+  font-family: 'zocial', sans-serif;
+}
+@font-face {
+	font-family: 'icomoon';
+	src:url('https://jlalovi-cv.herokuapp.com/font/icomoon.eot');
+	src:url('https://jlalovi-cv.herokuapp.com/font/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('https://jlalovi-cv.herokuapp.com/font/icomoon.ttf') format('truetype'),
+		url('https://jlalovi-cv.herokuapp.com/font/icomoon.woff') format('woff'),
+		url('https://jlalovi-cv.herokuapp.com/font/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-cloudy:before {
+	content: "\e60f";
+}
+.icon-sun:before {
+	content: "\e610";
+}
+.icon-cloudy2:before {
+	content: "\e611";
+}
+/************************************* END FONTS *************************************/
+/******************** stat.css과 병합 210904 START ********************/
+.icon {
+	font-size: 25px;
+}
+.scnd-font-color {
+    color: #9099b7;
+}
+.block {
+			margin-bottom: 25px;
+			background: #394264;
+			border-radius: 5px;
+            margin: 1em auto;
+            width: 950px;
+		}
+header {
+		height: 80px;
+	}
+		.header-menu {
+			font-size: 17px;
+			line-height: 80px;
+		}
+			.header-menu li {
+				position: relative;
+        		-webkit-transform: translateZ(0); /** To avoid a flash when hover messages **/
+			}
+				.header-menu-tab {
+					padding: 0 27px;
+					display: block;
+					line-height: 74px;
+					font-size: 17px;
+					-webkit-transition: background .3s;
+					transition: background .3s;
+                    color: #fff;
+                    text-decoration: none;
+				}
+					.header-menu-tab:hover {
+						background: #50597b;
+						border-bottom: 4px solid #11a8ab;
+						text-decoration: none;
+					}
+					.header-menu-tab .icon {
+						padding-right: 15px;
+					}
+				.header-menu-number {
+					position: absolute;
+					line-height: 22px;
+					padding: 0 6px;
+					font-weight: 700;
+					background: #e64c65;
+					border-radius: 100%;
+					top: 15px;
+					right: 2px;
+					-webkit-transition: all .3s linear;
+					transition: all .3s linear;
+				}
+					.header-menu li:hover .header-menu-number {
+						text-decoration: none;
+						-webkit-transform: rotate(360deg);
+						transform: rotate(360deg);
+
+					}
+.horizontal-list {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+	.horizontal-list li {
+		float: left;
+	}
+.body{
+    background: #1f253d;
+}
+h1, h2, a, span{
+	color: #fff;
+}
+.main-content{
+    
+}
+/******************** stat.css과 병합 210904 END ********************/
 /* rank 페이지 카카오 광고 */
 
 /* 폰트 가져오기 */
@@ -42,22 +169,29 @@
 
 .title {
     font-family: "jua";
-    font-size: 4rem;
+    font-size: 2.5rem;
     text-align: center;
+    /* 210904 */
+    padding-top: 30px; 
 }
 .table_div {
-    width: 500px;
+    /* 210904 */
+    width: 100%;
     margin: 0 auto;
 }
-
-.redate {
-    color:#908d8dd1;
+/* 210904 */
+.table_sub_div {
+    width: 70%;
+    margin: 0 auto;
+}
+.redate  {
+    color:#dddddd;
     text-align:right;
     margin-left: 5px;
 }
 
 .rank_source {
-    color:#908d8dd1;
+    color:#dddddd;
     float:right;
     margin-right: 5px;
 }
@@ -75,6 +209,7 @@
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 70%;
 }
 
 .content-table thead tr {
@@ -91,6 +226,7 @@
 
 .content-table tbody tr {
     border-bottom: 1px solid #dddddd;
+    background-color: #ffffff;
 }
 
 .content-table tbody tr:nth-of-type(even) {
@@ -108,7 +244,7 @@
 
 .navigation {
     height: 70px;
-    background: #262626;
+    /* background: #262626; */
 }
 
 .brand {

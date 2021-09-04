@@ -41,7 +41,7 @@
             google.charts.setOnLoadCallback(drawChart1);
             // bar chart
             function drawChart1() {
-                var chart_data = {{rank_data['210827_table']|tojson}};
+                var chart_data = {{rank_data['210901_table']|tojson}};
                 var chart_table = [["직업", "인구 수", { role: "style" } ]];
                 for (var step = 0; step < 44; step++) {
                     var randomColor = Math.floor(Math.random()*16777215).toString(16);
@@ -59,13 +59,13 @@
                            2]);
 
                 var options = {
-                title: "jobmaple.cf",
+                title: "jobmaple.com",
                 chartArea:{left:120,top:50,width:"100%",height:"100%"},
                 height: 1500,
                 width: 1500,
                 bar: {groupWidth: "80%"},
                 legend: { position: "none" },
-                backgroundColor: '#11a8ab',
+                // backgroundColor: '#394264',
             };
             var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
             chart.draw(view, options);
@@ -245,18 +245,20 @@
                 </nav>
             </div>
         </section> -->
-        <h1 style = "text-align: center; margin: 1em auto; font-size: 30px;">JOBMAPLE.CF</h1>
+        <h1 style = "text-align: center; margin: 1em auto; font-size: 30px;">JOBMAPLE.COM</h1>
         <div class="main-container">
             
             <!-- HEADER -->
             <header class="block">
-                
                 <ul class="header-menu horizontal-list">
                     <li>
                         <a class="header-menu-tab" href="https://maple.run.goorm.io/"><span class="icon fontawesome-align-left scnd-font-color"></span>직업 랭킹</a>
                     </li>
                     <li>
                         <a class="header-menu-tab" href="https://maple.run.goorm.io/mbti"><span class="icon fontawesome-check scnd-font-color"></span>메BTI</a>
+                    </li>
+                    <li>
+                        <a class="header-menu-tab" href="https://maple.run.goorm.io/stat"><span class="icon entypo-chart-line scnd-font-color"></span>통계</a>
                     </li>
                 </ul>
             </header>
@@ -284,7 +286,7 @@
                         <div id="char_chart" style="width: 100%; height: 100%; overflow:auto;"></div>
                         <!-- END LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL -->
                     </div>
-                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; background: #394264; border-radius: 5px;">
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap; border-radius: 5px; background: #394264;">
                         
                         {% for i in range(0, len_) %}
                             <div style="width: 120px;">

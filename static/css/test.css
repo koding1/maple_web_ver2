@@ -372,9 +372,11 @@ h1, h2, p, a, span{
 					}
 			.donut-chart-block {
 				height: 434px;
+                
 			}
 				.donut-chart-block .titular {
-					padding: 10px 0;
+					/* padding: 10px 0; */
+                    background: #0c9396;
 				}
 				.donut-chart {
 					height: 270px;
@@ -497,7 +499,11 @@ h1, h2, p, a, span{
 			}
 				.line-chart {
 					height: 340px;
-					background: #11a8ab;
+					/* background: #11a8ab; */
+				}
+                .line-chart-block .titular {
+					/* padding: 10px 0; */
+                    background: #0c9396;
 				}
         /******************************************
 				LINE-CHART by @kseso https://codepen.io/Kseso/pen/phiyL

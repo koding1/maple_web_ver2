@@ -7,11 +7,11 @@ application = Flask(__name__)
 
 @application.route("/")
 def main():
-    return render_template("job_rank_0825.html", rank_data=data['210827_table'])
+    return render_template("job_rank_0825.html", rank_data=data['210901_table'])
 
 @application.route("/job_rank")
 def job_rank():
-    return render_template("job_rank_0825.html", rank_data=data['210827_table'])
+    return render_template("job_rank_0825.html", rank_data=data)
 
 @application.route("/mbti")
 def navi():
@@ -29,7 +29,7 @@ def chart2():
 def update_history():
     return render_template("update_history.html", rank_data=data)
 
-@application.route("/s")
+@application.route("/stat")
 def statistics():
     return render_template("statistics.html", rank_data=data, job_name = job_name, len_ = len(job_name), div_id = div_id)
 
@@ -40,6 +40,7 @@ if __name__ == "__main__":
     job_name = []
     div_id = []
     cnt = 0
+    # 데이터의 처음 날짜로 지정해줘야함 (인덱스 저장 용)
     for i in data['210310_table']:
         job_name.append(i['job'])
         div_id.append("job"+str(cnt))
