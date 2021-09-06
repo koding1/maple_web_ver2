@@ -66,59 +66,7 @@
             for (var key in job_index_dictionay){
                 job_name.push(key)
             }
-
-            $(document).ready(function () {
-                $(".checkAll").change(function() {
-                    console.log('abasd')
-                    if ($("#checkAll").is(':checked')) {
-                        $("input[type=checkbox]").prop("checked", true);
-                    } else {
-                        $("input[type=checkbox]").prop("checked", false);
-                        $("input[id='job0']").prop("checked", true);
-                    }
-                    view = new google.visualization.DataView(data);
-                    var tes =[0];
-
-                    for (var i = 0 ; i < 44; i++){
-                        if($("#job"+String(i)).is(':checked')) {
-                            tes.push(i+1,
-                                { calc: "stringify",
-                                    id: job_name[i],
-                                    type: "string",
-                                    role: "annotation" });                    
-                        }
-                    }
-                    
-                    view.setColumns(tes);
-                    
-                    chart.draw(view, options);
-                });
-                
-                // do stuff on "ready" event
-                $(".checkbox").change(function() {
-                    view = new google.visualization.DataView(data);
-                    var tes =[0];
-                    
-                    for (var i = 0 ; i < 44; i++){
-                        if($("#job"+String(i)).is(':checked')) {
-                            tes.push(i+1,
-                                { calc: "stringify",
-                                    id: job_name[i],
-                                    type: "string",
-                                    role: "annotation" });                    
-                        }
-                    }
-                    
-                    view.setColumns(tes);
-                    
-                    chart.draw(view, options);
-
-                });
-            });
-            
         }
-          
-        
         </script>
         <!-- <script type="text/javascript">
             google.charts.load("current", {packages:["corechart"]});
@@ -170,25 +118,6 @@
                 </div>
         </header>
         <div id="char_chart" style="width: 500px; height: 500px; overflow:auto;"></div>
-        <div style="display: flex;">
-            <input type='checkbox' class="checkAll" id='checkAll' value='selectall'/> <b>Select All</b>
-            {% for i in range(0, len_) %}
-                <input type="checkbox" name='job' class="checkbox"  id={{div_id[i]}}> {{job_name[i]}}<br>
-            {% endfor %}
-            
-            
-            <!-- <input type="checkbox" class="checkbox"  id="job1" checked> 불독<br>
-            <input type="checkbox" class="checkbox"  id="job2" checked> 비숍<br>
-            <input type="checkbox" class="checkbox"  id="job3" checked> 나로<br>
-            <input type="checkbox" class="checkbox"  id="job4" checked> 아델<br>
-            <input type="checkbox" class="checkbox"  id="job5" checked> 섀도어<br>
-            <input type="checkbox" class="checkbox"  id="job6" checked> 은월<br>
-            <input type="checkbox" class="checkbox"  id="job7" checked> 패파<br>
-            <input type="checkbox" class="checkbox"  id="job8" checked> 엔버<br>
-            <input type="checkbox" class="checkbox"  id="job9" checked> 아크<br>
-            <input type="checkbox" class="checkbox"  id="job10" checked> 썬콜<br> -->
-        </div>
-        <!-- <div id="barchart_values" style="width: 500px; height: 500px; overflow:auto;"></div> -->
     </body>
 </html>
 

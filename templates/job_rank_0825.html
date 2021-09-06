@@ -99,12 +99,17 @@
         
         <div class="main-content block">
             <h1 class="title">직업 인기도 순위</h1>
-
+            
             <div class="table_div">
-
+    
                 <div class="table_sub_div">
-                        <b class="redate">갱신일 : 21/09/01</b>
-                        <small class="rank_source">http://haegu99.pythonanywhere.com/</small>
+                    <div class="tooltip">
+                        <span class="icon entypo-help scnd-font-color"></span>
+                        <b>세부 통계는 상단 '통계' 탭을 이용해주세요 !</b>
+                    </div>
+                    
+                    <b class="redate">갱신일 : 21/09/01</b>
+                    <small class="rank_source">http://haegu99.pythonanywhere.com/</small>
                 </div>
                 <table class="content-table">
                     <thead>
@@ -121,7 +126,9 @@
                         {% for i in rank_data %}
                         <tr>
                             <td>{{i['now_rank']}}</td>
-                            <td>{{i['job']}}</td>
+                            <td>
+                                {{i['job']}}
+                            </td>
                             <td>{{i['char_cnt']}}</td>
                             <td>
                                 {% if i['char_cnt']-i['ex_char_cnt'] > 0 %}

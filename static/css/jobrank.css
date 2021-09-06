@@ -118,13 +118,43 @@ header {
 .body{
     background: #1f253d;
 }
-h1, h2, a, span{
+h1, h2, a{
 	color: #fff;
 }
 .main-content{
     
 }
 /******************** stat.css과 병합 210904 END ********************/
+/******************** hover set 0906 S********************/
+/* .content-table .hover_tag {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+} */
+
+/* .content-table:hover .hover_tag {
+  visibility: visible;
+} */
+.my_tooltip {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    background-color: var(--dropdown-bg);
+    box-shadow: -1px 3px 8px -1px rgb(0 0 0 / 20%);
+    padding: 8px;
+    border-radius: 50%;
+    z-index: 3;
+    cursor: pointer;
+    color: #FFFFFF
+}
+/******************** hover set 0906 E********************/
 /* rank 페이지 카카오 광고 */
 
 /* 폰트 가져오기 */
@@ -185,8 +215,13 @@ h1, h2, a, span{
     margin: 0 auto;
 }
 .redate  {
-    color:#dddddd;
-    text-align:right;
+    color:#FFFFFF;
+    /* text-align:right; */
+    margin-left: 5px;
+}
+.tooltip  {
+    color : #e64c65;
+    /* text-align:right; */
     margin-left: 5px;
 }
 
