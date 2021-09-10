@@ -103,55 +103,63 @@
             <div class="table_div">
     
                 <div class="table_sub_div">
+                    
                     <div class="tooltip">
-                        <span class="icon entypo-help scnd-font-color"></span>
-                        <b>세부 통계는 상단 '통계' 탭을 이용해주세요 !</b>
+                        <span class="icon entypo-check scnd-font-color" style="font-size: 20px;"></span>
+                        <b>260 이상의 캐릭터 수를 집계한 데이터입니다.</b>
+                    </div>
+                    
+                    <div class="tooltip">
+                        <span class="icon entypo-chart-line scnd-font-color" style="font-size: 18px;"></span>
+                        <b>'통계' 탭에 더 많고 재밌는 통계가 있답니다 !</b>
                     </div>
                     
                     <b class="redate">갱신일 : 21/09/01</b>
                     <small class="rank_source">http://haegu99.pythonanywhere.com/</small>
                 </div>
-                <table class="content-table">
-                    <thead>
-                        <tr>
-                            <th>순위</th>
-                            <th>직업</th>
-                            <th>캐릭터 수</th>
-                            <th>캐릭터 변동</th>
-                            <th>순위 변동</th>
-                        </tr>
-                    </thead>
+                <div class="content-div">
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>직업</th>
+                                <th>캐릭터 수</th>
+                                <th>캐릭터 변동</th>
+                                <th>순위 변동</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        {% for i in rank_data %}
-                        <tr>
-                            <td>{{i['now_rank']}}</td>
-                            <td>
-                                {{i['job']}}
-                            </td>
-                            <td>{{i['char_cnt']}}</td>
-                            <td>
-                                {% if i['char_cnt']-i['ex_char_cnt'] > 0 %}
-                                <p style="color: red;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
-                                {% elif 0 > i['char_cnt']-i['ex_char_cnt'] %}
-                                <p style="color: blue;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
-                                {% else %}
-                                <p>{{i['char_cnt']-i['ex_char_cnt']}}</p>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if i['ex_rank']-i['now_rank'] > 0 %}
-                                <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
-                                {% elif 0 > i['ex_rank']-i['now_rank'] %}
-                                <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
-                                {% else %}
-                                <p>{{i['ex_rank']-i['now_rank']}}</p>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        <tbody>
+                            {% for i in rank_data %}
+                            <tr>
+                                <td>{{i['now_rank']}}</td>
+                                <td>
+                                    {{i['job']}}
+                                </td>
+                                <td>{{i['char_cnt']}}</td>
+                                <td>
+                                    {% if i['char_cnt']-i['ex_char_cnt'] > 0 %}
+                                    <p style="color: red;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                                    {% elif 0 > i['char_cnt']-i['ex_char_cnt'] %}
+                                    <p style="color: blue;">{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                                    {% else %}
+                                    <p>{{i['char_cnt']-i['ex_char_cnt']}}</p>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if i['ex_rank']-i['now_rank'] > 0 %}
+                                    <p style="color: red;">{{i['ex_rank']-i['now_rank']}}</p>
+                                    {% elif 0 > i['ex_rank']-i['now_rank'] %}
+                                    <p style="color: blue;">{{i['ex_rank']-i['now_rank']}}</p>
+                                    {% else %}
+                                    <p>{{i['ex_rank']-i['now_rank']}}</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>

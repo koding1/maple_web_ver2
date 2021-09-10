@@ -155,6 +155,55 @@ h1, h2, a{
     color: #FFFFFF
 }
 /******************** hover set 0906 E********************/
+
+
+/******************** table head fix and body scroll 0910 E********************/
+
+.content-table {
+  width: 100%;
+}
+
+
+.content-table thead {
+  /* display: table;  */
+  width: calc(100% - 17px); 
+}
+
+.content-table tbody {
+  display: block; 
+  max-height: 800px;
+  overflow-y: scroll; 
+}
+
+.content-table th, td {
+  /* width: 33.33%;*/
+  padding: 5px;
+  word-break: break-all; 
+}
+
+.content-table tr {
+  display: table; 
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.content-table td {
+  /* text-align: center; */
+  /* border-bottom: none;
+  border-left: none; */
+}
+
+.content-table th:nth-of-type(1), .content-table td:nth-of-type(1) { width: 40px; }
+.content-table th:nth-of-type(2), .content-table td:nth-of-type(2) { width: 100px; }
+.content-table th:nth-of-type(3), .content-table td:nth-of-type(3) { width: 100px; }
+.content-table th:nth-of-type(3), .content-table td:nth-of-type(4) { width: 100px; }
+.content-table th:nth-of-type(3), .content-table td:nth-of-type(5) { width: 100px; }
+
+.table_div{
+    padding-bottom: 50px;
+}
+/******************** table head fix and body scroll 0910 E********************/
+
 /* rank 페이지 카카오 광고 */
 
 /* 폰트 가져오기 */
@@ -203,6 +252,7 @@ h1, h2, a{
     text-align: center;
     /* 210904 */
     padding-top: 30px; 
+    margin-bottom: 7px;
 }
 .table_div {
     /* 210904 */
@@ -223,6 +273,8 @@ h1, h2, a{
     color : #e64c65;
     /* text-align:right; */
     margin-left: 5px;
+    text-align: right;
+    margin-bottom: 10px;
 }
 
 .rank_source {
